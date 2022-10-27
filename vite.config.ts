@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [vue()],
   publicDir:process.env.NODE_ENV === 'production'
   ? '/my-project/'
-  : '/',
+  : 'https://welldyrosman.github.io/paikama-frontend/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
