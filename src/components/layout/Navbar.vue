@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="../../assets/image/website/logo.png" class="" alt="Bootstrap" height="40">
+                <img src="@/assets/image/website/logo.png" class="" alt="Bootstrap" height="40">
             </a>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
