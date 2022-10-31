@@ -1,7 +1,41 @@
+@font-face {
+  font-family: "Poppins";
+  src: local("Poppins"),
+  url('@/fonts/Poppins-Regular.ttf') format("truetype");
+}
+@font-face {
+  font-family: "Poppins-semibold";
+  src: local("Poppins-semibold"),
+  url('@/fonts/Poppins-SemiBold.ttf') format("truetype");
+}
+@font-face {
+  font-family: "Poppins-medium";
+  src: local("Poppins-medium"),
+  url('@/fonts/Poppins-Medium.ttf') format("truetype");
+}
+$font-family-base: "Poppins", Helvetica, Arial !important;
 
+.f-med{
+  font-family:  "Poppins-medium", sans-serif !important;
+}
+.f-sbold{
+  font-family:  "Poppins-semibold", sans-serif !important;
+}
+.f-bold{
+  font-family:  "Poppins-semibold", sans-serif !important;
+}
+.margin-navbar{
+  margin-top: 65px !important;
+}
+$primary:#5663D9;
 $theme-colors: (
-    "primary": black,
-    "danger": blue
-  );
-  
-  @import 'node_modules/bootstrap/scss/bootstrap';
+  "primary":$primary,
+  "danger": #ff4136,
+  "warning":#FEC84B
+);
+$font-size-base: 0.8rem;
+.radius{
+  border-radius: 1rem;
+}
+@import '../../node_modules/bootstrap/scss/bootstrap';
+

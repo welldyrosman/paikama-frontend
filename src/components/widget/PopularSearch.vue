@@ -36,7 +36,7 @@ export default {
 </script>
 <style scoped>
 .popular-search {
-    font-size: smaller;
+    font-size: 0.6rem;
     color: white;
 }
 

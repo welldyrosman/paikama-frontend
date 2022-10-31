@@ -1,0 +1,45 @@
+.carousel__pagination-button::after {
+
+    content: none;
+
+}
+.carousel__item {
+    border-radius: 1rem ;
+}
+.carousel__pagination-button {
+    background-color: rgba(159, 159, 159, 0.742);
+    border-radius: 100%;
+    margin: 0 1px 0 1px;
+
+}
+
+.carousel__pagination {
+    position: absolute;
+    bottom: 13px;
+    width: 100%;
+    margin: 0;
+    justify-content: none;
+}
+
+.carousel__pagination-button--active {
+    background-color: rgb(255, 255, 255);
+}
+
+.carousel:hover .carousel__next,
+.carousel:hover .carousel__prev {
+    display: flex;
+}
+
+.carousel .carousel__prev,
+.carousel .carousel__next {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: white;
+    border-radius: 100%;
+    display: none;
+}
+
+.carousel__next--disabled,
+.carousel__prev--disabled {
+    display: none !important;
+}

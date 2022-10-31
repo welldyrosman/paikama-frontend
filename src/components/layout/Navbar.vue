@@ -1,9 +1,9 @@
 <template>
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav style="border-bottom:1px solid #D0D5DD ;" class="navbar navbar-expand-lg fixed-top bg-white">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <RouterLink to="/" class="navbar-brand" href="#">
                 <img src="@/assets/image/website/logo.png" class="" alt="Bootstrap" height="40">
-            </a>
+            </RouterLink>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
 
