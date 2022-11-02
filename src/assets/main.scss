@@ -1,3 +1,4 @@
+@use 'colorVariable.scss';
 @font-face {
   font-family: "Poppins";
   src: local("Poppins"),
@@ -27,15 +28,57 @@ $font-family-base: "Poppins", Helvetica, Arial !important;
 .margin-navbar{
   margin-top: 65px !important;
 }
-$primary:#5663D9;
+
 $theme-colors: (
-  "primary":$primary,
+  "primary":colorVariable.$primary,
   "danger": #ff4136,
-  "warning":#FEC84B
+  "warning":#FEC84B,
+  "blur":colorVariable.$blur,
+  "secondary":colorVariable.$secondary,
+  "greytwo":colorVariable.$greytwo,
+  "grey700":colorVariable.$grey700
 );
+.f-small{
+  font-size: 0.5rem !important;
+}
+.f-smaller{
+  font-size: 0.7rem !important;
+}
+.f-large{
+  font-size: 1rem !important;
+}
 $font-size-base: 0.8rem;
 .radius{
   border-radius: 1rem;
 }
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1ac;
+  border-radius: 1rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:colorVariable.$blur;
+  border-radius: 1rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(103, 103, 103);
+}
+
+
+
+
 @import '../../node_modules/bootstrap/scss/bootstrap';
 

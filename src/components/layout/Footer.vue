@@ -6,7 +6,7 @@
                     <div class="row my-5">
                         <div v-for="(item, index) in footerMenus" :key="index" class="d-flex flex-column col-sm-2">
                             <div style="color: #98A2B3;" class="fw-bolder mt-5 f-sbold">{{item.head}}</div>
-                            <a href="" class="footmenu  f-med" v-for="(menu, index) in item.menus" :key="index">{{menu.title}}</a>
+                            <a href="" class="footmenu text-blur f-med" v-for="(menu, index) in item.menus" :key="index">{{menu.title}}</a>
                         </div>
                     </div>
                 </div>
@@ -197,7 +197,6 @@ export default {
 
 .footmenu {
     text-decoration: none;
-    color: #667085;
     margin-top: 0.5rem;
 }
 

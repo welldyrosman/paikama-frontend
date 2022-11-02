@@ -7,7 +7,7 @@
 <style scoped>
 .floating-btn{
     position: fixed;
-    bottom: 2rem;
+    bottom: 5rem;
 }
 .btn-floating{
     background-color: rgba(0, 0, 0, 0.776);

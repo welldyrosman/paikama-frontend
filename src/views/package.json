@@ -1,0 +1,174 @@
+{
+    "packages": [
+        {
+            "id": 1,
+            "title": "Nusa Penida Barat",
+            "itenarary": [
+                {
+                    "id": 1,
+                    "title": "Hari Pertama di Penida Barat",
+                    "rundowns": [
+                        {
+                            "id": 1,
+                            "title": "10.00 WIB",
+                            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n                                            semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n                                            sodales vehicula...."
+                        },
+                        {
+                            "id": 2,
+                            "title": "11.00 WIB",
+                            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n        semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n        sodales vehicula...."
+                        },
+                        {
+                            "id": 3,
+                            "title": "15.00 WIB",
+                            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n        semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n        sodales vehicula...."
+                        },
+                        {
+                            "id": 4,
+                            "title": "19.00 WIB",
+                            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n        semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n        sodales vehicula...."
+                        }
+                    ]
+                }
+            ],
+            "includes": [
+                {
+                    "id": 1,
+                    "title": "Akses (Barat) Masuk Objek Wisata"
+                },
+                {
+                    "id": 2,
+                    "title": "Akses (Barat) Masuk Objek Wisata"
+                },
+                {
+                    "id": 3,
+                    "title": "Akses (Barat) Masuk Objek Wisata"
+                },
+                {
+                    "id": 4,
+                    "title": "Akses (Barat) Masuk Objek Wisata"
+                }
+            ],
+            "excludes": [
+                {
+                    "id": 1,
+                    "title": "(Barat) Pendamping Wanita"
+                },
+                {
+                    "id": 2,
+                    "title": "(Barat) Hotel"
+                },
+                {
+                    "id": 3,
+                    "title": "(Barat) Perlengkapan Mandi"
+                },
+                {
+                    "id": 4,
+                    "title": "(Barat) Bensin dan Kendaraanya"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Nusa Penida Timur",
+            "itenarary": [
+                {
+                    "id": 1,
+                    "title": "Hari Pertama di Penida Timur",
+                    "rundowns": [
+                        {
+                            "id": 1,
+                            "title": "10.00 WIB",
+                            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n                                            semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n                                            sodales vehicula...."
+                        },
+                        {
+                            "id": 2,
+                            "title": "11.00 WIB",
+                            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n                                            semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n                                            sodales vehicula...."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "title": "Hari Kedua di Penida Timur",
+                    "rundowns": [
+                        {
+                            "id": 1,
+                            "title": "10.00 WIB-11.00",
+                            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n                                            semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n                                            sodales vehicula...."
+                        },
+                        {
+                            "id": 2,
+                            "title": "11.00 WIB-Selesai",
+                            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n        semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n        sodales vehicula...."
+                        }
+                    ]
+                }
+            ],
+            "includes": [
+                {
+                    "id": 1,
+                    "title": "Akses Masuk Objek Wisata"
+                },
+                {
+                    "id": 2,
+                    "title": "Akses Masuk Objek Wisata"
+                },
+                {
+                    "id": 3,
+                    "title": "Akses Masuk Objek Wisata"
+                },
+                {
+                    "id": 4,
+                    "title": "Akses Masuk Objek Wisata"
+                }
+            ],
+            "excludes": [
+                {
+                    "id": 1,
+                    "title": "Pendamping Wanita"
+                },
+                {
+                    "id": 2,
+                    "title": "Hotel"
+                },
+                {
+                    "id": 3,
+                    "title": "Perlengkapan Mandi"
+                },
+                {
+                    "id": 4,
+                    "title": "Bensin dan Kendaraanya"
+                }
+            ]
+        }
+    ],
+    "guidelist": [
+        {
+            "id": 1,
+            "title": "Bahasa Indonesia"
+        },
+        {
+            "id": 2,
+            "title": "Bahasa Korea"
+        },
+        {
+            "id": 3,
+            "title": "Bahasa English"
+        },
+        {
+            "id": 4,
+            "title": "Bahasa Wanita"
+        }
+    ],
+    "tripkind": [
+        {
+            "id": 1,
+            "title": "Open Trip"
+        },
+        {
+            "id": 2,
+            "title": "Private Trip"
+        }
+    ]
+}
