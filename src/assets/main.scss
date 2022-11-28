@@ -1,59 +1,125 @@
-@use 'colorVariable.scss';
+@use "colorVariable.scss";
 @font-face {
   font-family: "Poppins";
-  src: local("Poppins"),
-  url('@/fonts/Poppins-Regular.ttf') format("truetype");
+  src: local("Poppins"), url("@/fonts/Poppins-Regular.ttf") format("truetype");
 }
 @font-face {
   font-family: "Poppins-semibold";
   src: local("Poppins-semibold"),
-  url('@/fonts/Poppins-SemiBold.ttf') format("truetype");
+    url("@/fonts/Poppins-SemiBold.ttf") format("truetype");
 }
 @font-face {
   font-family: "Poppins-medium";
   src: local("Poppins-medium"),
-  url('@/fonts/Poppins-Medium.ttf') format("truetype");
+    url("@/fonts/Poppins-Medium.ttf") format("truetype");
 }
 $font-family-base: "Poppins", Helvetica, Arial !important;
-
-.f-med{
-  font-family:  "Poppins-medium", sans-serif !important;
+$body-color: colorVariable.$grey900;
+.f-med {
+  font-family: "Poppins-medium", sans-serif !important;
 }
-.f-sbold{
-  font-family:  "Poppins-semibold", sans-serif !important;
+.f-sbold {
+  font-family: "Poppins-semibold", sans-serif !important;
 }
-.f-bold{
-  font-family:  "Poppins-semibold", sans-serif !important;
+.f-bold {
+  font-family: "Poppins-semibold", sans-serif !important;
 }
-.margin-navbar{
-  margin-top: 65px !important;
+.margin-navbar {
+  margin-top: 77px !important;
+  margin-bottom: 65px !important;
 }
-
-$theme-colors: (
-  "primary":colorVariable.$primary,
-  "danger": #ff4136,
-  "warning":#FEC84B,
-  "blur":colorVariable.$blur,
-  "secondary":colorVariable.$secondary,
-  "greytwo":colorVariable.$greytwo,
-  "grey700":colorVariable.$grey700
-);
-.f-small{
-  font-size: 0.5rem !important;
+.mybox{
+  border: 1px solid colorVariable.$grey300 !important;
+  border-radius: 0.7rem;
 }
-.f-smaller{
-  font-size: 0.7rem !important;
-}
-.f-large{
-  font-size: 1rem !important;
-}
-$font-size-base: 0.8rem;
-.radius{
+.login-box {
+  border: 1px solid colorVariable.$grey200 !important;
   border-radius: 1rem;
 }
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
 
+.h-custom {
+  height: calc(100% - 73px);
+}
 
+@media (max-width: 450px) {
+  .h-custom {
+    height: 100%;
+  }
+}
+$theme-colors: (
+  "primary": colorVariable.$primary,
+  "primary50": colorVariable.$primary50,
+  "danger": #ff4136,
+  "warning": #fec84b,
+  "grey200": colorVariable.$grey200,
+  "grey500": colorVariable.$grey500,
+  "grey600": colorVariable.$grey600,
+  "grey700": colorVariable.$grey700,
+  "grey100": colorVariable.$grey100,
+  "grey300": colorVariable.$grey300,
+  "grey400": colorVariable.$grey400,
+  "grey800": colorVariable.$grey800,
+  "grey900": colorVariable.$grey900,
+);
 
+$pagination-color: colorVariable.$grey800;
+$pagination-active-bg: colorVariable.$grey50;
+$pagination-active-color: colorVariable.$grey800;
+$pagination-active-border-color: colorVariable.$grey300;
+:root{
+  --bs-body-color:$body-color
+}
+.btn-bd-primary {
+  --bs-btn-border-color: #D0D5DD !important;
+  --bs-btn-color: #344054 !important;
+  --bs-btn-bg: #fff !important;
+  --bs-btn-hover-bg: #F2F4F7;
+  --bs-btn-hover-border-color: #D0D5DD !important;
+  &.circle{
+    border-radius: 3rem !important;
+  }
+}
+
+.f-12 {
+  font-size: 0.75rem !important;
+}
+.f-16 {
+  font-size: 1rem !important;
+}
+.f-18 {
+  font-size: 1.125rem !important;
+}
+.f-20 {
+  font-size: 1.25rem !important;
+}
+.f-24 {
+  font-size: 1.5rem !important;
+}
+.f-30 {
+  font-size: 1.875rem !important;
+}
+.f-48 {
+  font-size: 1.875rem !important;
+}
+
+$font-size-base: 0.875rem;
+.radius {
+  border-radius: 1rem;
+}
+.link {
+  cursor: pointer !important;
+  &.disabled-link {
+    color: colorVariable.$grey400 !important;
+    cursor: not-allowed !important;
+  }
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -68,7 +134,7 @@ $font-size-base: 0.8rem;
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background:colorVariable.$blur;
+  background: colorVariable.$grey100;
   border-radius: 1rem;
 }
 
@@ -77,8 +143,4 @@ $font-size-base: 0.8rem;
   background: rgb(103, 103, 103);
 }
 
-
-
-
-@import '../../node_modules/bootstrap/scss/bootstrap';
-
+@import "../../node_modules/bootstrap/scss/bootstrap";

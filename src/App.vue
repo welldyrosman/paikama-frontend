@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import Navbar from './components/layout/Navbar.vue';
-
+// import { usePackStore } from '@/stores/package';
+// const packStore=usePackStore;
+// packStore();
+// console.log("from app",packStore())
 </script>
 
 <template>
-    <Navbar />
     <RouterView />
 </template>
 

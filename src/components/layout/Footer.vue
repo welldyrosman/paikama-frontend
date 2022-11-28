@@ -4,9 +4,24 @@
             <div v-if="exspand" class="other-info">
                 <div class="container">
                     <div class="row my-5">
-                        <div v-for="(item, index) in footerMenus" :key="index" class="d-flex flex-column col-sm-2">
-                            <div style="color: #98A2B3;" class="fw-bolder mt-5 f-sbold">{{item.head}}</div>
-                            <a href="" class="footmenu text-blur f-med" v-for="(menu, index) in item.menus" :key="index">{{menu.title}}</a>
+                        <div v-for="(item, index) in footerMenus" :key="index" class="d-flex flex-column col-md-3">
+                            <div style="color: #98A2B3;" class="fw-bolder mt-5 f-sbold">{{ item.head }}</div>
+                            <a href="" class="footmenu text-grey500 f-med" v-for="(menu, index) in item.menus"
+                                :key="index">{{ menu.title }}</a>
+                        </div>
+                        <div class="d-flex flex-column col-md-3">
+                            <div class="f-20 f-med mt-5 text-grey900">Join our newsletter</div>
+                            <div>We’ll send you a nice letter once per week. No spam.</div>
+                            <form class="row g-2 mt-3">
+                                <div class="col-auto">
+                                    <label for="inputPassword2" class="visually-hidden">Password</label>
+                                    <input type="email" class="form-control form-control-sm" id="inputPassword2"
+                                        placeholder="welldy#gamil.com">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-sm btn-primary mb-3">Subscribe</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -36,142 +51,58 @@ export default {
             exspand: false,
             footerMenus: [
                 {
-                    head: "Product",
+                    head: "Tentang PAIKAMA",
                     menus: [
                         {
-                            title: "Overview",
+                            title: "Tentang Kami",
                             path: ""
                         }, {
-                            title: "Features",
+                            title: "PAIKAMA Blog",
                             path: ""
                         }, {
-                            title: "Solutions",
+                            title: "Karier",
+                            path: ""
+                        }
+                    ]
+                }, {
+                    head: "Kerja Sama",
+                    menus: [
+                        {
+                            title: "Pendaftaran Merchant",
                             path: ""
                         }, {
-                            title: "Tutorials",
+                            title: "Partner Login",
                             path: ""
                         }, {
-                            title: "Pricing",
+                            title: "Kerjasama Affiliate",
                             path: ""
                         }, {
-                            title: "Release",
+                            title: "Program Influencer",
+                            path: ""
+                        }, {
+                            title: "Agen Marketplace",
+                            path: ""
+                        }, {
+                            title: "Distribusi & Pertanyaan Pemasaran",
                             path: ""
                         },
                     ]
                 }, {
-                    head: "Company",
+                    head: "Ketentuan Penggunaan",
                     menus: [
                         {
-                            title: "About Us",
+                            title: "Syarat & Ketentuan",
                             path: ""
                         }, {
-                            title: "Careers",
+                            title: "Kebijakan Privasi",
                             path: ""
                         }, {
-                            title: "Pers",
+                            title: "Kebijakan Cookie",
                             path: ""
                         }, {
-                            title: "News",
+                            title: "Program Bug Bounty",
                             path: ""
-                        }, {
-                            title: "Media Kit",
-                            path: ""
-                        }, {
-                            title: "Contact",
-                            path: ""
-                        },
-                    ]
-                }, {
-                    head: "Resources",
-                    menus: [
-                        {
-                            title: "Blog",
-                            path: ""
-                        }, {
-                            title: "Newsletter",
-                            path: ""
-                        }, {
-                            title: "Events",
-                            path: ""
-                        }, {
-                            title: "Help Centre",
-                            path: ""
-                        }, {
-                            title: "Tutorials",
-                            path: ""
-                        }, {
-                            title: "Support",
-                            path: ""
-                        },
-                    ]
-                }, {
-                    head: "Use Cases",
-                    menus: [
-                        {
-                            title: "Startups",
-                            path: ""
-                        }, {
-                            title: "Enterprise",
-                            path: ""
-                        }, {
-                            title: "Goverment",
-                            path: ""
-                        }, {
-                            title: "Saas",
-                            path: ""
-                        }, {
-                            title: "Marketplace",
-                            path: ""
-                        }, {
-                            title: "Ecommerce",
-                            path: ""
-                        },
-                    ]
-                }, {
-                    head: "Social",
-                    menus: [
-                        {
-                            title: "Twitter",
-                            path: ""
-                        }, {
-                            title: "Linkedin",
-                            path: ""
-                        }, {
-                            title: "Dribble",
-                            path: ""
-                        }, {
-                            title: "Facebook",
-                            path: ""
-                        }, {
-                            title: "Github",
-                            path: ""
-                        }, {
-                            title: "Angelist",
-                            path: ""
-                        },
-                    ]
-                }, {
-                    head: "Legal",
-                    menus: [
-                        {
-                            title: "Term",
-                            path: ""
-                        }, {
-                            title: "Privacy",
-                            path: ""
-                        }, {
-                            title: "Cookies",
-                            path: ""
-                        }, {
-                            title: "Licence",
-                            path: ""
-                        }, {
-                            title: "Setting",
-                            path: ""
-                        }, {
-                            title: "Contact",
-                            path: ""
-                        },
+                        }
                     ]
                 }
             ]
@@ -179,7 +110,8 @@ export default {
     },
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
+@use '@/assets/colorVariable.scss';
 
 .slide-fade-enter-active {
     transition: all 0.5s ease-out;
@@ -201,8 +133,6 @@ export default {
 }
 
 .footer {
-    background-color: #F2F4F7;
+    background-color: colorVariable.$grey100;
 }
-
-.bigfooter {}
 </style>

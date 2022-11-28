@@ -2,8 +2,8 @@
 
     <div class="d-flex flex-box py-3">
         <Carousel :settings="settings" :breakpoints="breakpoints">
-            <Slide v-for="slide in 10" :key="slide">
-                <div class="itemflex mx-1" v-for="(item, index) in items" :key="index">{{ item.title }}</div>
+            <Slide v-for="slide in items" :key="slide">
+                <ItemFlexVue :item="slide" />
             </Slide>
             <template #addons>
                 <Navigation />
@@ -12,7 +12,9 @@
     </div>
 </template>
 <script lang="ts">
+import ItemFlexVue from './ItemFlex.vue';
 export default {
+    components: { ItemFlexVue },
     data() {
         return {
             items: [
@@ -65,18 +67,18 @@ export default {
                 },
             ],
             settings: {
-                itemsToShow: 1,
+                itemsToShow: 10,
                 snapAlign: 'center',
             },
             breakpoints: {
                 // 700px and up
                 700: {
-                    itemsToShow: 5,
+                    itemsToShow: 9,
                     snapAlign: 'center',
                 },
                 // 1024 and up
                 1024: {
-                    itemsToShow: 9,
+                    itemsToShow: 10,
                     snapAlign: 'start',
                 },
             },
@@ -89,14 +91,5 @@ export default {
     font-size: smaller;
     max-width: 100%;
     overflow-x: hidden;
-}
-
-.itemflex {
-    border: 1px solid rgb(189, 189, 189);
-    padding: 0.1rem 0.6rem 0.2rem 0.6rem;
-    border-radius: 1rem;
-    cursor: pointer;
-    color: grey;
-    min-width: fit-content;
 }
 </style>

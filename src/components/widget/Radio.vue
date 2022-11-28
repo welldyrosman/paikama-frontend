@@ -1,5 +1,5 @@
 <template>
-    <label id="radio-con" :class="value == bindval ? 'active' : 'default'" class="radio-con px-4">
+    <label id="radio-con" :class="radioactive" class="radio-con px-4">
         <input type="radio" :name="groupname" v-on:change="changeoption" :value="value" v-model="bindval">
         <span class="checkmark"></span>
         <span class="f-med ms-4">{{ labels }}</span>
@@ -26,18 +26,20 @@ export default {
         }
     },
     emits: ['update:bindval'],
-    setup(props, { emit }) {
-        const changeoption = ($event) => {
-            emit('update:bindval', $event.target.value*1)
+    computed:{
+        radioactive(){
+           return this.value == this.bindval ? 'active' : 'default'
         }
-        return { changeoption }
     },
+    // setup(props, { emit }) {
+    //     const changeoption = ($event) => {
+    //         emit('update:bindval', $event.target.value*1)
+    //     }
+    //     return { changeoption }
+    // },
     methods: {
-    },
-    watch: {
-        bindval(val, valnew) {
-            console.log(val);
-            console.log(valnew);
+        changeoption($event){
+            this.$emit('update:bindval', $event.target.value*1)
         }
     },
     data() {

@@ -1,0 +1,19 @@
+{
+    "title": "Beranda",
+    "path":"/",
+    "inner": {
+        "title": "Indonesia",
+        "path":"/",
+        "inner": {
+            "title": "Bali",
+            "path":"/by-city",
+            "inner": {
+                "title": "Nusa Peninda",
+                "path":"/",
+                "inner": {
+                    "title": "Open Trip Pulau Tidung, Kepulauan Seribu (2Hari 1Malam) By Sabiladventure"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "title": "Tour and Travel",
+        "desc": "Buat kamu yang mau hiling di dalam atau ke luar negeri, PAIKAMA punya paket tour and travel lho!",
+        "image": "image/website/travel.jpeg"
+    },
+    {
+        "id": 2,
+        "title": "Event Organizer",
+        "desc": "Cape buat event sendiri? Tenang! PAIKAMA punya paket Event Organizer yang bikin kamu ga ribet lagi!",
+        "image": "image/website/EO.jpeg"
+    },
+    {
+        "id": 3,
+        "title": "Wedding Organizer",
+        "desc": "Bingung soal acara pernikahan? Eitss tenang aja...PAIKAMA ada Wedding Organizer juga lho!",
+        "image": "image/website/WO.jpeg"
+    }
+]

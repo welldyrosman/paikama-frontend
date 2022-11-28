@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div class="parallax d-flex flex-column align-items-center justify-content-center">
+        <div class="parallax d-flex flex-column align-items-center justify-content-center px-3">
             <div class="text-center lg mb-3">
                 <h5 class="text-white">Hai Kamu yang di sana, hari ini mau kemana?</h5>
             </div>
@@ -13,7 +13,7 @@
 import PopularSearch from '../widget/PopularSearch.vue';
 import SearchBig from '../widget/SearchBig.vue';
 export default{
-    components: { SearchBig, PopularSearch }
+    components: { SearchBig, PopularSearch },
 }
 </script>
 <style scoped>
