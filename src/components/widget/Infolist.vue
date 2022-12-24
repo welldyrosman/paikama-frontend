@@ -1,15 +1,15 @@
 <template>
     <ul>
-        <li v-for="(item, index) in data" :key="index">{{item.title}}</li>
+        <li v-for="(item, index) in data" :key="index">{{item.facility.title}}</li>
     </ul>
 </template>
 <script lang="ts">
-import type Info from "@/types/Info"
+import type TripFacility from "@/types/TripFacility";
 export default{
     props:{
         data:{
             default:[],
-            type:Array<Info>
+            type:Array<TripFacility>
         }
     }
 }

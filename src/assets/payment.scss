@@ -1,0 +1,64 @@
+@use "@/assets/colorVariable.scss";
+
+.paytime {
+    background-color: colorVariable.$grey800;
+    width: 100%;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    progress {
+        top: 21%;
+        -webkit-appearance: none;
+        width: 100%;
+        height: 15px;
+        position: absolute;
+        z-index: 5;
+        margin-right: 70px;
+
+        // margin-right: 70px;
+        &::-webkit-progress-value {
+            background-color: colorVariable.$primary;
+            transition: .2s ease;
+        }
+
+        &::-webkit-progress-bar {
+            background-color: colorVariable.$grey300;
+        }
+
+    }
+
+    .step-item {
+        z-index: 10;
+
+        .step-title {
+            //   max-width: 10px;
+        }
+
+        .step-button {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            border: 5px solid white;
+            background-color: colorVariable.$primary;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+
+            .dot {
+                height: 8px;
+                width: 8px;
+                background-color: white;
+                border-radius: 50%;
+            }
+        }
+    }
+}

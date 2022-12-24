@@ -1,11 +1,12 @@
 import { ref, computed } from "vue";
+
 import { acceptHMRUpdate, defineStore } from "pinia";
 
 export interface DataState {
   userList: UserInfo[];
   user: UserInfo;
   isLogin: boolean;
-  n:any;
+  token:string|null;
 }
 
 export const useMemberStore = defineStore({
@@ -15,7 +16,7 @@ export const useMemberStore = defineStore({
       isLogin: false,
       userList: [],
       user: {} as UserInfo,
-      n: ref(0),
+      token:null,
     };
   },
   getters: {},
@@ -23,7 +24,7 @@ export const useMemberStore = defineStore({
 });
 interface UserInfo {
   name: string;
-  age: number;
+  email: string;
 }
 
 if (import.meta.hot) {

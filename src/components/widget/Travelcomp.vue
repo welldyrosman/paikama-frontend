@@ -1,10 +1,10 @@
 <template>
     <div class="travel d-flex align-items-center">
         <div class="travel-logo">
-            <img class="img-fluid rounded-circle" v-if="data.logo"  :src="getlogo" />
+            <img class="img-fluid rounded-circle" v-if="data.logo"  :src="$getImage(data?.logo)" />
             <div style="height:1.9rem ;" v-else></div>
         </div>
-        <div class="travel-title f-sbold ms-1">{{data.title}}</div>
+        <div class="travel-title f-sbold ms-1">{{data.name}}</div>
     </div>
 </template>
 <script lang="ts">
@@ -14,8 +14,7 @@ export default{
         data:{
             default:{
                 id:0,
-                title:"TRavel Name",
-                logo:"image/website/travel/travel-logo.jpg"
+                title:"Travel Name",
             },
             type: Object as ()=> Agency
         },

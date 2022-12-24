@@ -2,16 +2,29 @@
     <label id="radio-con" :class="radioactive" class="radio-con px-4">
         <input type="radio" :name="groupname" v-on:change="changeoption" :value="value" v-model="bindval">
         <span class="checkmark"></span>
-        <span class="f-med ms-4">{{ labels }}</span>
+        <div class="f-med ms-4 d-flex justify-content-between">
+            <span>{{ labels }}</span>
+            <span v-if="price" >+{{$toCurrency(price) }}{{`/${isperpack?'Pack':'Trip'}`}}</span></div>
     </label>
 </template>
 <script lang="ts">
+import type Option from '@/types/Option'
+
 export default {
     props: {
         labels: {
             default: "Label",
         },
+        isperpack:{
+            type:Boolean||null,
+            default:false
+        },
+        price:{
+            type:Number || null,
+            default:null
+        },
         groupname: {
+            type:String,
             default: "radiogroup",
         },
         value: {
@@ -28,9 +41,10 @@ export default {
     emits: ['update:bindval'],
     computed:{
         radioactive(){
-           return this.value == this.bindval ? 'active' : 'default'
+           return this.value === this.bindval ? 'active' : 'default'
         }
     },
+    
     // setup(props, { emit }) {
     //     const changeoption = ($event) => {
     //         emit('update:bindval', $event.target.value*1)
@@ -40,6 +54,7 @@ export default {
     methods: {
         changeoption($event){
             this.$emit('update:bindval', $event.target.value*1)
+            //console.log("from radio",this.bindval)
         }
     },
     data() {
@@ -48,13 +63,12 @@ export default {
     },
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 $primary: #5663D9;
 
 .radio-con {
     display: block;
     position: relative;
-    margin-bottom: 12px;
     cursor: pointer;
     border-color: #EAECF0;
     background-color: #FFFFFF;

@@ -1,11 +1,11 @@
 <template>
     <div class="travel d-flex align-items-center">
         <div class="travel-logo">
-            <img class="img-fluid" :src="getlogo"  />
+            <img class="img-fluid rounded-circle" v-if="data.logo" :src="$getImage(data?.logo)"  />
         </div>
         <div class="travel-title ms-1">
-            <div class="f-sbold ">{{data.title}}</div>
-            <span class="f-12er text-grey500">Bergabung Sejak{{data.joinYM}}</span>
+            <div class="f-sbold ">{{data.name}}</div>
+            <span class="f-12er text-grey500">Bergabung Sejak {{$getMY(data.created_at)}}</span>
         </div>
     </div>
 </template>
@@ -28,6 +28,6 @@ export default{
 <style scoped>
 .travel-logo {
     width: 3rem;
-    border-radius: 3rem;
+    border-radius: 3rem !important;
 }
 </style>

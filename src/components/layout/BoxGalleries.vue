@@ -2,8 +2,8 @@
     <div class="box-galleries row mt-3">
         <div class="col-9">
             <Carousel :settings="settings" :breakpoints="breakpoints">
-                <Slide v-for="slide,i in 10" :key="slide">
-                    <img :src="`/src/assets/image/website/package/pack-${i+2}.jpg`" class="img-ulasan rounded" />
+                <Slide v-for="slide,i in images" class="img-comments" :key="slide">
+                    <img :src="$getImage(slide?.image)" v-if="slide.image" class="img-ulasan rounded" />
                 </Slide>
 
                 <template #addons>
@@ -18,8 +18,15 @@
     </div>
 </template>
 <script lang="ts">
+import type CommentPic from '@/types/CommentPic';
 import 'vue3-carousel/dist/carousel.css'
 export default {
+    props:{
+        images:{
+            type:Array<CommentPic>,
+            default:[]
+        }
+    },
     data() {
         return {
             settings: {
@@ -47,6 +54,26 @@ export default {
 
 .img-ulasan {
     width: 9rem;
+}
+.img-comments {
+    @media only screen and (max-width: 500px) {
+        width: 100px !important;
+        height: 60px !important;
+    }
+
+    width: 140px !important;
+    height: 100px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-right: 0.5rem;
+
+    img {
+        flex-shrink: 0;
+        min-width: 100%;
+        min-height: 100%
+    }
 }
 
 .box-galleries {

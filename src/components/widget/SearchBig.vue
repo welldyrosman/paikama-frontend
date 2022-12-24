@@ -38,10 +38,10 @@ export default {
             alert()
         },
         blur() {
-            console.log("blur");
+            //console.log("blur");
         },
         focus() {
-            console.log("focus");
+            //console.log("focus");
         }
     }
 }

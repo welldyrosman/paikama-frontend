@@ -1,23 +1,24 @@
 <template>
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row" >
+        <div class="col-md-12" v-for="(itenerary, index) in itineraries" :key="index">
             <p class="f-med">{{ itenerary.title }}</p>
             <ul class="timeline f-12">
                 <li v-for="(item, index) in itenerary.rundowns" :key="index">
-                    <div class="f-sbold">{{ item.title }}</div>
-                    <p>{{ item.content }}</p>
+                    <div class="f-sbold">{{ item.start_time }}- {{ item.end_time }}</div>
+                    <p>{{ item.title }}</p>
                 </li>
             </ul>
         </div>
     </div>
 </template>
 <script lang="ts">
+import type Itinerary from '@/types/Itinerary';
+import type Rundown from '@/types/Rundown';
 export default {
     props: {
-        itenerary: {
-            type: Object,
+        itineraries: {
+            type:  Array<Itinerary>,
             default: {
-                rundowns: []
             }
         }
     },

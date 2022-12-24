@@ -2,17 +2,21 @@
     <div>
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img src="@/assets/image/website/user/user-1.jpg" class="user-ava me-3" />
-                <div class="text-grey500">{{ user.name }}</div>
+                <img :src="$getImage(comment?.member?.info.profil_pic)" class="user-ava me-3" />
+                <div class="text-grey500">{{ comment.member?.name }}</div>
             </div>
-            <div class="f-12 text-grey500 text-end">12 Desember 2022</div>
+            <div class="f-12 text-grey500 text-end">{{ comment.created_at }}</div>
         </div>
         <Stars class="mt-3" :star=5 />
         <div class="comments mt-3">
-            Impian para pelancong ketika berada di Indonesia adalah pelesiran ke Labuan Bajo. Desa di Provinsi Nusa Tenggara Timur ini pun memiliki destinasi wisata yang apik dan ciamik, mulai dari wisata sejarah, budaya, hingga panorama alam.
-Banyak destinasi wisata yang bisa kamu kunjungi. Salah satu daya tarik Labuan Bajo adalah kawasan habitat hewan endemik, yakni Komodo yang berada di Taman Nasional Komodo. Tak pelak, banyak pelancong berlomba-lomba berkunjung melihat indahnya NTT. Soalnya, Pulau Komodo merupakan habitat asli binatang purba komodo bernaung.
+            {{ comment.comment }}
         </div>
         <a class="link-primary mt-5">Lihat Lebih Banyak</a>
+        <div class="d-flex my-3">
+            <div v-for="(slide, index) in comment.images" class="img-comments" :key="index">
+                <img :src="$getImage(slide?.image)" v-if="slide.image" class="img-fluid rounded" />
+            </div>
+        </div>
         <div class="d-flex mt-3 text-grey500">
             <i class="bi bi-hand-thumbs-up me-3"></i>
             Bermanfaat
@@ -21,14 +25,12 @@ Banyak destinasi wisata yang bisa kamu kunjungi. Salah satu daya tarik Labuan Ba
 </template>
 <script lang="ts">
 import Stars from './Stars.vue';
-
+import type Comment from '@/types/Comment';
 export default {
     props: {
-        user: {
-            type: Object,
+        comment: {
+            type: Object as () => Comment,
             default: {
-                id: null,
-                name: "Welldy Rosman"
             }
         }
     },
@@ -36,6 +38,27 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.img-comments {
+    @media only screen and (max-width: 500px) {
+        width: 100px !important;
+        height: 60px !important;
+    }
+
+    width: 140px !important;
+    height: 100px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-right: 1rem;
+
+    img {
+        flex-shrink: 0;
+        min-width: 100%;
+        min-height: 100%
+    }
+}
+
 .user-ava {
     height: 32px;
     width: 32px;

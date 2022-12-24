@@ -6,10 +6,12 @@ import FooterComp from '@/components/layout/Footer.vue';
 import FloatingButton from '@/components/layout/FloatingButton.vue';
 import CategoryCity from '@/components/layout/CategoryCity.vue';
 import SearchBar from '@/components/layout/SearchBar.vue';
+
 </script>
 
 <template>
     <main class="margin-navbar">
+       
         <SearchBar class="onmobile d-none d-sm-block d-md-none" />
             <RouterView />
         <FooterComp class="fixed-bottom" />

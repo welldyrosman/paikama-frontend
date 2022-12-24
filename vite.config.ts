@@ -3,7 +3,7 @@ import legacy from "@vitejs/plugin-legacy";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
-console.log(process.env.NODE_ENV);
+//console.log(process.env.CDN_URL);
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [

@@ -110,7 +110,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.stores.cities.lat);
+        //console.log(this.stores.cities.lat);
         this.center = {
             lat: this.stores.cities.lat,
             lng: this.stores.cities.long

@@ -1,67 +1,71 @@
 <template>
     <main>
-        <div class="detail-title f-sbold f-18 mb-2"> {{ packStore.packView.title }}</div>
-        <div class="detail-title f-sbold f-16 mb-2"> {{ package['title'] }}</div>
-        <div class="item-detail">
-            <i>
-                <IconBase iconName="compare" width="1rem" height="1rem">
-                    <IconPlane />
-                </IconBase>
-            </i><span>{{kindtrip.title}}</span>
+        <div class="detail-title f-sbold f-18 mb-2"> {{ trip.title }}</div>
+        <hr class="hr-devider"/>
+        <div class="d-flex">
+            <img class="img-transpack me-2" :src="$getFirstImage(trip?.images)" />
+            <div class="detail-title f-sbold f-16 mb-2"> {{ package['title'] }}</div>
         </div>
-        <div class="item-detail"><i class="bi bi-calendar3"></i><span> {{cartStore.date}}</span>
+        <div class="item-detail"><i class="bi bi-calendar3"></i><span> {{ date }}</span>
         </div>
-        <div class="item-detail"><i class="bi bi-translate"></i><span> {{langtrip.title}}</span>
+        <div class="item-detail d-flex" v-for="(item, index) in option_selected">
+            <i class="bi bi-option"></i>
+            <div>
+                <div class="f-med"> {{ item.title }}</div>
+                <div>{{ item.items.title }}</div>
+            </div>
         </div>
-        <div class="item-detail"><i class="bi bi-arrow-clockwise"></i> <span> Bisa Refund</span>
-        </div>
+
     </main>
 </template>
 <script lang="ts">
 import IconBase from '@/components/IconBase.vue';
 import IconPlane from '@/components/icons/IconPlane.vue';
-import { useCartStore } from '@/stores/cart';
-import { usePackStore } from '@/stores/package';
-import type Info from '@/types/Info';
-interface packageType{
-    id:number,
-    title:string,
-}
-export default{
-    setup() {
-        const cartStore = useCartStore();
-        const packStore = usePackStore();
-        return {
-            cartStore,packStore
+import type SelectedOptions from '@/types/SelectedOption';
+import type SubPackage from '@/types/SubPackage';
+import type Package from '@/types/Package';
+import type OptionsResponse from '@/types/Response/TransactionVa';
+
+export default {
+    components: { IconBase, IconPlane },
+    watch:{
+        trip(nval,oval){
+            console.log('trip watch',nval)
         }
     },
-    components:{IconBase,IconPlane},
-    props:{
-        package:{
-            type:Object,
-            default:{} as packageType
+    mounted(){
+    },
+    props: {
+        option_selected: {
+            type: Array<SelectedOptions>,
+            default: []
         },
-        date:{
-            type:Date,
-            default:null
-        },
-        kindtrip: {
-            type: Object as () => Info,
+        trip: {
+            type: Object as () => Package,
             default: {
-                title: "Belum Memilih Paket"
+                title: "Belum Memilih Trip"
             }
         },
-        langtrip: {
-            type: Object as () => Info,
-            default: {
-                title: "Belum Memilih Paket"
-            }
-        }
+        package: {
+            type: Object as () => SubPackage,
+            default: {}
+        },
+        date: {
+            type: Date,
+            default: null
+        },
+
     }
 }
 </script>
 <style scoped lang="scss">
 @use '@/assets/colorVariable.scss';
+
+.img-transpack {
+    width: 30%;
+    height: 50px;
+    border-radius: 0.5rem;
+}
 
 .item-detail {
     i {
@@ -74,5 +78,4 @@ export default{
 
     margin-bottom: 0.5rem;
 }
-
 </style>

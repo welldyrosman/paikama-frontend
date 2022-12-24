@@ -21,7 +21,10 @@ import CheckOutView from "@/views/pages/CheckoutView/index.vue";
 import { useMemberStore } from "@/stores/members";
 import CategoryCityVeiw from "@/views/pages/CategoryView/index.vue";
 import NotFoundVue from "@/views/pages/NotFound.vue";
-
+import Test from "@/views/pages/Test/index.vue";
+import TransactionInfoVue from "@/views/pages/CheckoutView/TransactionInfo.vue";
+import PaymentOptionVue from "@/views/pages/CheckoutView/PaymentOption.vue";
+import VirtualAccountVue from "@/views/pages/CheckoutView/VirtualAccount.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -30,12 +33,15 @@ const router = createRouter({
       name: "home",
       children: [
         {
+          path: "/test",
+          component: Test,
+        },
+        {
           path: "",
           component: IndexView,
           children: [
             { path: "", component: HomeView },
             { path: "city-view/:city/mapsview", component: MapsView },
-           
           ],
         },
         { path: "/city-view/:city", component: CategoryCityVeiw },
@@ -47,7 +53,15 @@ const router = createRouter({
         { path: "/compare", component: CompareViewVue },
         { path: "/forgot", component: InputEmailVue },
         { path: "/forgot/sended", component: ConfirmEmailVue },
-        { path: "/checkout", component: CheckOutView },
+        {
+          path: "/checkout",
+          component: CheckOutView,
+          children: [
+            { path: "", component: TransactionInfoVue },
+            { path: "/checkout/payment", component: PaymentOptionVue },
+          ],
+        },
+        { path: "/payment/settlement/:trans_uuid", component: VirtualAccountVue },
         {
           path: "/account",
           component: MemberArea,
@@ -74,7 +88,7 @@ const router = createRouter({
         { path: "/register", component: RegisterView },
       ],
     },
-    { path: '/:pathMatch(.*)*', component: NotFoundVue },
+    { path: "/:pathMatch(.*)*", component: NotFoundVue },
   ],
 });
 router.beforeEach((to, from) => {

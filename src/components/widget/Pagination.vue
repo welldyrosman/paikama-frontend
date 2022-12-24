@@ -1,20 +1,36 @@
 <template>
     <nav aria-label="...">
         <ul class="pagination justify-content-end">
-            <li class="page-item disabled">
-                <a class="page-link"><i class="bi bi-arrow-left"></i> Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next <i class="bi bi-arrow-right"></i></a>
+            <li v-for="(item, index) in data?.links" :key="index" @click="changePage(item)"  class="page-item " :class="[{'disabled':!item.url},{'active':item.active}]">
+                <a class="page-link" ><span v-html="item.label" ></span></a>
             </li>
         </ul>
     </nav>
 </template>
+<script lang="ts">
+import type Pagination from '@/types/Pagination'
+export interface LinkPage{
+    active:boolean,
+    label:string,
+    url:string|null
+}
+export default{
+    props:{
+        data:{
+            type:Object as ()=> Pagination
+        }
+    },
+    methods:{
+        changePage(item:LinkPage){
+            this.$emit('changePage',item.url?.split("page=")[1])
+        }
+    }
+}
+</script>
 <style lang="scss" scoped>
-
+.pagination{
+    li{
+        cursor:  pointer !important;
+    }
+}
 </style>

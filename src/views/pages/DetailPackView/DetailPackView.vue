@@ -5,12 +5,12 @@
             <Breadcumb :paths="paths" class="mt-5 pt-4" />
             <div class="row mt-3">
                 <div class="col-lg-6 col-md-12 ps-3 pe-1">
-                    <img class="img-crop" src="@/assets/image/website/package/pack-1.jpg" />
+                    <img class="img-crop" :src="$getImage(package?.images[0]?.img_path)" />
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
                     <div class="row">
-                        <div class="col-lg-6 px-1" v-for="(item, index) in 4" :key="index">
-                            <img :src="`/src/assets/image/website/package/pack-${index + 3}.jpg`" class="img-crop-sm"
+                        <div class="col-lg-6 px-1" v-for="(item, index) in package.images.slice(1)" :key="index">
+                            <img :src="$getImage(item?.img_path)" class="img-crop-sm"
                                 :class="[{ 'mt-8': (index == 3 || index == 2) }]" />
                         </div>
 
@@ -19,54 +19,52 @@
             </div>
             <div class="row">
                 <div class="col-lg-7">
-                    <h5 class="f-sbold mt-4 f-24">{{ packStore.packView.title }}</h5>
+                    <h5 class="f-sbold mt-4 f-24">{{ package.title }}</h5>
                     <div class="titlefoot d-flex align-items-center text-truncate">
                         <span class="text-warning me-3"><i class="bi bi-star-fill "></i>
-                            {{ packStore.packView.star }}</span>
-                        <div>({{ packStore.packView.comments }} Ulasan)</div>
+                            {{ Math.round(package.transaction_avg_rating) }}</span>
+                        <div>({{ package.comments_count }} Ulasan)</div>
                         <i class="bi bi-dot"></i>
-                        <div>{{ packStore.packView.city }}, {{ packStore.packView.country }}</div>
+                        <div>{{ package.city?.title }}, {{ package.country?.title }}</div>
                         <i class="bi bi-dot"></i>
-                        <Travelcomp :data="packStore.packView.agency" />
+                        <Travelcomp :data="package.agency" />
                     </div>
                     <section class="mt-5">
                         <h5 class="f-sbold f-24">Tentang Aktifitas Ini</h5>
-                        <div class="content mt-3">{{ packStore.packView.description }}</div>
+                        <div class="content mt-3">{{ package.description }}</div>
                     </section>
-                    <TransactionBar class="d-lg-none" v-model:kindtrip="kindtrip" v-model:langtrip="langtrip"
-                        v-model:response="packStore.packView" v-model:package="package"
-                        v-model:package_active="package_active"   
-                        v-model:kind_active="kind_active"
-                        v-model:lang_active="lang_active"/>
+                    <!-- <TransactionBar class="d-lg-none" 
+                    v-model:response="package"
+                    v-model:package_active="package_active"
+                    v-model:package="package_selected"
+                    v-model:options="kindtrip" /> -->
                     <hr />
                     <h4 class="f-sbold mt-3 f-24">Detail Paket Ini</h4>
                     <div class="box-content">
                         <h5 class="f-sbold f-20">Itenerary</h5>
-                        <Itenerary v-for="(item, index) in package['itenarary']" :key="item.id"
-                            v-model:itenerary="package['itenarary'][index]" />
+                        <Itenerary v-model:itineraries="itineraries" />
                         <h5 class="f-sbold f-20">Termasuk</h5>
-                        <Infolist :data="package.includes" />
+                        <Infolist v-model:data="includes" />
                         <h5 class="f-sbold f-20">Tidak Termasuk</h5>
-                        <Infolist :data="package.excludes" />
+                        <Infolist v-model:data="excludes" />
                         <h5 class="f-sbold f-20">Info Tambahan</h5>
-                        <Infolist :data="package.additionalInfos" />
+                        <!-- <Infolist :data="package.additionalInfos" /> -->
                     </div>
 
                     <hr />
                     <h4 class="f-sbold mt-3 f-24">Lokasi</h4>
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126218.39536762456!2d115.0742971185449!3d-8.660622527085648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2477f04748e85%3A0x65b83481caecd509!2sAtlas%20Beach%20Club!5e0!3m2!1sid!2sid!4v1667374516611!5m2!1sid!2sid"
-                        width="100%" height="250" style="border:0;border-radius: 1rem;" allowfullscreen=true
-                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <GMapMap :center="{ lat: 51.093048, lng: 6.842120 }" :zoom="7" map-type-id="terrain"
+                        style="width: 100%; height: 200px">
+                    </GMapMap>
                     <hr />
                     <h4 class="f-sbold mt-3 f-24">Tentang Kami</h4>
-                    <TravelcompTwo :data="packStore.packView.agency" />
+                    <TravelcompTwo :data="package.agency" />
                     <br />
                     <div class="d-flex align-items-center">
                         <i class="bi bi-star-fill text-warning me-2"></i>
-                        <RateNumberVue :rate="packStore.packView.star" />
+                        <RateNumberVue :rate="Math.round(package.transaction_avg_rating)" />
                         <i class="bi bi-dot text-grey500"></i>
-                        <div class="me-5 text-grey500">{{ packStore.packView.comments }} Ulasan</div>
+                        <div class="me-5 text-grey500">{{ package.comments_count }} Ulasan</div>
                         <i class="bi bi-patch-check-fill me-2 text-primary f-large"></i>
                         <div class="text-grey500">Identitas terverifikasi</div>
                     </div>
@@ -80,35 +78,31 @@
                     <h4 class="f-sbold mt-3 f-24">Ulasan</h4>
                     <div class="d-flex align-items-center">
                         <i class="bi bi-star-fill text-warning me-2"></i>
-                        <h3 class="f-sbold mb-0">4.5</h3>
+                        <h3 class="f-sbold mb-0">{{ Math.round(package.transaction_avg_rating) }}</h3>
                         <span class="f-12 text-grey500 me-3">/5</span>
-                        <Stars :star=4 />
+                        <Stars :star="Math.round(package.transaction_avg_rating)" />
                         <i class="bi bi-dot text-grey500"></i>
-                        <div class="me-5 text-grey500">4k+ Ulasan</div>
-
+                        <div class="me-5 text-grey500">{{ package.comments_count }} Ulasan</div>
                     </div>
-                    <BoxGalleries />
+                    <BoxGalleries :images="package.comment_pictures" />
                     <div class="d-flex mt-3">
                         <ItemFlex class="me-2" v-for="(item, index) in 4" :key="index" />
                     </div>
-                    <Comments v-for="(item, index) in 2" :key="index" class="mt-3" />
-                    <Pagination class="mt-3" />
+                    <Comments v-for="(item, index) in comments" :comment="item" :key="index" class="mt-3" />
+                    <Pagination @changePage="queryComments" :data="pagination" class="mt-3" />
                     <hr />
                     <h4 class="f-sbold mt-3">Mungkin Kamu Juga Suka</h4>
                     <div class="row row-cols-1 row-cols-md-3 g-2">
-                        <CatalogCard v-for="(item, index) in packStore.packages" :package="item" :seq="index + 1"
-                            :key="index" />
+                        <!-- <CatalogCard v-for="(item, index) in packStore.packages" :package="item" :seq="index + 1"
+                            :key="index" /> -->
                     </div>
 
                 </div>
                 <div class="col-lg-5">
                     <h5 class="f-sbold mt-4 f-24">Pilihan Paket</h5>
-                    <TransactionBar class="d-none d-lg-block"  v-model:kindtrip="kindtrip" v-model:langtrip="langtrip"
-                        v-model:response="packStore.packView" v-model:package="package"
-                        v-model:package_active="package_active"
-                        v-model:kind_active="kind_active"
-                        v-model:lang_active="lang_active"
-                        />
+                    <TransactionBar class="d-none d-lg-block" v-model:package_active="cartStore.package_active"
+                        v-model:package="package_selected" v-model:response="package" v-model:price_list="price_list"
+                        v-model:option_selected="cartStore.option_selected" />
                 </div>
             </div>
 
@@ -133,53 +127,89 @@ import Comments from '@/components/widget/Comments.vue';
 import Pagination from '@/components/widget/Pagination.vue';
 import ItemFlex from '@/components/layout/ItemFlex.vue';
 
-import responseData from './package.json';
 import breadcumbData from '../../../stores/Breadcumb.json';
 import RateNumberVue from '@/components/widget/RateNumber.vue';
-import { usePackStore } from '@/stores/package';
 import type SubPackage from '@/types/SubPackage';
-import type Info from '@/types/Info';
+import type TripFacility from '@/types/TripFacility';
+import landingPageService from '@/services/landing-page-service';
+import type Package from '@/types/Package';
+import type Comment from '@/types/Comment';
+import type PaginationType from '@/types/Pagination';
+import type ItineraryType from '@/types/Itinerary';
+import type Price from '@/types/Price';
+import { useCartStore } from '@/stores/cart';
 export default {
     setup() {
-        const packStore = usePackStore();
+        const cartStore = useCartStore();
+
         return {
-            packStore
+            cartStore
         }
+    },
+  
+    mounted() {
+      
+        landingPageService.findByTitle(this.$route.params.place).then(ret => {
+            this.queryComments();
+            this.package = ret as Package;
+            if (this.cartStore.package_active == 0 && this.cartStore.trip_active != this.package.id) {
+                this.cartStore.trip = this.package;
+                this.cartStore.trip_active = this.package.id;
+                this.cartStore.package_active = this.package.packages[0].id;
+
+            }
+        })
+
     },
     data() {
         return {
             paths: breadcumbData,
-            package_active: 1,
-            kind_active: 1,
-            lang_active: 1,
-
+            pagination: {} as PaginationType,
+            package: {
+                images: [],
+                city: {}
+            } as Package,
         }
     },
-    watch:{
-       
+    watch: {
+        package_selected(nval, oldval) {
+            this.cartStore.option_selected = {};
+            nval.options.forEach(opt => {
+                this.cartStore.option_selected[opt.id] = opt.items[0].id;
+                this.cartStore.option_selected[opt.id + "_qty"] = 1 as any;
+            });
+        },
     },
     computed: {
-        package(): SubPackage {
-            const obj = this.packStore.packView.packages.find((obj) => {
-                return obj.id == this.package_active;
-            });
-            return obj as SubPackage;
+        comments(): Array<Comment> {
+            return this.pagination.data;
         },
-        kindtrip(): Info {
-            const obj = this.packStore.packView.tripkind.find((obj) => {
-                return obj.id == this.kind_active;
+        price_list(): Array<Price> {
+            this.package_selected?.prices.forEach(price => {
+                price.start = new Date(price.trip_date_start),
+                    price.end = new Date(price.trip_date_end)
             });
-            return obj as Info;
+            return this.package_selected?.prices;
         },
-        langtrip(): Info {
-            const obj = this.packStore.packView.guidelist.find((obj) => {
-                return obj.id == this.lang_active;
-            });
-            console.log("lang",obj);
-            return obj as Info;
-        }
+        includes(): Array<TripFacility> {
+            return this.package_selected?.includes;
+        },
+        excludes(): Array<TripFacility> {
+            return this.package_selected?.excludes;
+        },
+        itineraries(): Array<ItineraryType> {
+            return this.package_selected?.itineraries
+        },
+        package_selected(): SubPackage {
+            const sub = this.package.packages?.find(subpack => subpack.id == this.cartStore.package_active)
+            return sub as SubPackage;
+        },
     },
     methods: {
+        async queryComments(page: number = 1) {
+            let retcomment = await landingPageService.getCommentsTrip(this.$route.params.place + `?page=${page}`);
+            this.pagination = retcomment;
+        }
     },
     components: { Breadcumb, Travelcomp, FooterComp, TransactionBar, Itenerary, Infolist, TravelcompTwo, BoxInfo, CatalogCard, Stars, BoxGalleries, Comments, Pagination, ItemFlex, RateNumberVue }
 }

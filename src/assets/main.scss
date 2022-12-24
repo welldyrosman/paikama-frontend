@@ -24,6 +24,12 @@ $body-color: colorVariable.$grey900;
 .f-bold {
   font-family: "Poppins-semibold", sans-serif !important;
 }
+.hr-devider {
+  border-top: 2px dashed colorVariable.$grey300;
+}
+.pointer{
+  cursor: pointer !important;
+}
 .margin-navbar {
   margin-top: 77px !important;
   margin-bottom: 65px !important;
@@ -58,6 +64,7 @@ $theme-colors: (
   "primary50": colorVariable.$primary50,
   "danger": #ff4136,
   "warning": #fec84b,
+  "success":#12B76A,
   "grey200": colorVariable.$grey200,
   "grey500": colorVariable.$grey500,
   "grey600": colorVariable.$grey600,
@@ -111,7 +118,7 @@ $pagination-active-border-color: colorVariable.$grey300;
 
 $font-size-base: 0.875rem;
 .radius {
-  border-radius: 1rem;
+  border-radius: 1rem !important;
 }
 .link {
   cursor: pointer !important;

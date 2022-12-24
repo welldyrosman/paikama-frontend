@@ -1,9 +1,9 @@
 export default interface Agency{
     id:number,
-    title:string,
+    name:string,
     lasttime: string;
     logo:string,
-    joinYM:string|null,
+    created_at:string,
     messages: Array<any>;
 
 }
