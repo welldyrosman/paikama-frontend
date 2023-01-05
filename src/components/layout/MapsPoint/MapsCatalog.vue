@@ -40,7 +40,7 @@ export default {
     },
     data() {
         return {
-            packSelected: {},
+            packSelected: {} as Package,
             selected: null,
             colorBox: "white",
             styleopt: [
@@ -101,7 +101,7 @@ export default {
         selectPoint(m: any) {
             if (!m) {
                 this.selected = null
-                this.packSelected = {};
+                this.packSelected = {} as Package;
             } else {
                 this.selected = m.id;
                 this.packSelected = m;
@@ -113,188 +113,13 @@ export default {
         //console.log(this.stores.cities.lat);
         this.center = {
             lat: this.stores.cities.lat,
-            lng: this.stores.cities.long
+            lng: this.stores.cities.lng
         };
         for (var i = 0; i < cities.length; i++) {
             if (i == 20) {
                 break
             }
-            this.packages.push({
-                "id": i + 1,
-                "title": "Trip Kepulauan Nusa Penida By Travel GO!",
-                "description": "Impian para pelancong ketika berada di Indonesia adalah pelesiran ke\n            Labuan\n            Bajo. Desa di Provinsi Nusa Tenggara Timur ini pun memiliki destinasi wisata yang apik dan\n            ciamik, mulai dari wisata sejarah, budaya, hingga panorama alam.\n            Banyak destinasi wisata yang bisa kamu kunjungi. Salah satu daya tarik Labuan Bajo adalah\n            kawasan habitat hewan endemik, yakni Komodo yang berada di Taman Nasional Komodo. Tak pelak,\n            banyak pelancong berlomba-lomba berkunjung melihat indahnya NTT. Soalnya, Pulau Komodo\n            merupakan habitat asli binatang purba komodo bernaung.\n            Selain itu ada Pink Beach sebagai pesona pantai surga di Labuan Bajo. Pantai ini disebut\n            Pink Beach karena pasirnya yang berwarna pink, berasal dari alga dan serpihan karang\n            berwarna merah yang bercampur dengan pasir putih. Selain keindahan pantainya, Pink Beach\n            juga terkenal dengan kehidupan bawah lautnya yang cantik sehingga cocok untuk snorkeling\n            atau diving.",
-                "city": cities[i].title,
-                "country": "Indonesia",
-                "star": 5,
-                "comments": 1053,
-                "price_before": 400000,
-                "price": 350000,
-                "positions": {
-                    "lat": cities[i].lat as number,
-                    "lng": cities[i].long as number
-                },
-                "packages": [
-                    {
-                        "id": 1,
-                        "title": "Nusa Penida Barat",
-                        "price_before": 400000,
-                        "price": 345000,
-                        "pricelist": [],
-                        "itenarary": [
-                            {
-                                "id": 1,
-                                "title": "Hari Pertama di Penida Barat",
-                                "rundowns": [
-                                    {
-                                        "id": 1,
-                                        "title": "10.00 WIB",
-                                        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n                                            semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n                                            sodales vehicula...."
-                                    },
-                                    {
-                                        "id": 2,
-                                        "title": "11.00 WIB",
-                                        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n        semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n        sodales vehicula...."
-                                    },
-                                    {
-                                        "id": 3,
-                                        "title": "15.00 WIB",
-                                        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n        semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n        sodales vehicula...."
-                                    },
-                                    {
-                                        "id": 4,
-                                        "title": "19.00 WIB",
-                                        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi\n        semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in\n        sodales vehicula...."
-                                    }
-                                ]
-                            }
-                        ],
-                        "includes": [
-                            {
-                                "id": 1,
-                                "title": "Akses masuk ke objek wisata"
-                            },
-                            {
-                                "id": 2,
-                                "title": "Makan siang"
-                            },
-                            {
-                                "id": 3,
-                                "title": "Air mineral botol"
-                            },
-                            {
-                                "id": 4,
-                                "title": "Transportasi ke dan dari hotel"
-                            },
-                            {
-                                "id": 5,
-                                "title": "Driver/pemandu berbahasa Inggris dasar"
-                            },
-                            {
-                                "id": 5,
-                                "title": "Perahu bersama antara Pelabuhan Sanur dan Nusa Penida (Senilai IDR300.000)"
-                            },
-                            {
-                                "id": 6,
-                                "title": "Pajak daerah (IDR25.000))"
-                            },
-                            {
-                                "id": 7,
-                                "title": "Transportasi pribadi di Nusa Penida"
-                            }
-                        ],
-                        "excludes": [
-                            {
-                                "id": 1,
-                                "title": "Pengeluaran pribadi lainnya"
-                            },
-                            {
-                                "id": 2,
-                                "title": "Tip"
-                            },
-                            {
-                                "id": 3,
-                                "title": "Peralatan snorkeling"
-                            },
-                            {
-                                "id": 4,
-                                "title": "Snorkeling opsional di Crystal Bay, Manta Bay, atau Gamat Bay (tambahan)"
-                            }
-                        ],
-                        "additionalInfos": [
-                            {
-                                "id": 1,
-                                "title": "Jika rentan mabuk kendaraan, kamu disarankan untuk minum obat mabuk laut 1 jam sebelum beraktivitas"
-                            },
-                            {
-                                "id": 2,
-                                "title": "Harap diperhatikan infrastruktur di Nusa Penida masih dalam tahap pengembangan sehingga kamu akan melewati jalanan yang belum rata dan tidak mulus"
-                            },
-                            {
-                                "id": 3,
-                                "title": "Sanur adalah pelabuhan tradisional, kamu mungkin akan agak basah saat hendak menaiki kapal. Sangat direkomendasikan mengenakan celana pendek atau pakaian pantai"
-                            },
-                            {
-                                "id": 4,
-                                "title": "Tour ini menggunakan transportasi perahu cepat bersama, dan dapat terjadi penundaan waktu keberangkatan"
-                            }
-                        ]
-                    },
-                ],
-                "guidelist": [
-                    {
-                        "id": 1,
-                        "title": "Bahasa Indonesia"
-                    },
-                    {
-                        "id": 2,
-                        "title": "Bahasa Korea"
-                    },
-                    {
-                        "id": 3,
-                        "title": "Bahasa English"
-                    },
-                    {
-                        "id": 4,
-                        "title": "Bahasa Wanita"
-                    }
-                ],
-                "tripkind": [
-                    {
-                        "id": 1,
-                        "title": "Open Trip"
-                    },
-                    {
-                        "id": 2,
-                        "title": "Private Trip"
-                    }
-                ],
-                "agency": {
-                    "id": 1,
-                    "title": "Travel Go!",
-                    "lasttime": "sdsfsd",
-                    "logo": "image/website/travel/travel-logo.jpg",
-                    "joinYM": "Dessember 2023",
-                    "messages": []
-                },
-                "images": [
-                    {
-                        "id": 1,
-                        "paths": "image/website/package/pack-1.jpg"
-                    },
-                    {
-                        "id": 2,
-                        "paths": "image/website/package/pack-3.jpg"
-                    },
-                    {
-                        "id": 3,
-                        "paths": "image/website/package/pack-5.jpg"
-                    },
-                    {
-                        "id": 4,
-                        "paths": "image/website/package/pack-7.jpg"
-                    }
-                ]
-            });
+         
         }
     },
     components: { CatalogCardVue }

@@ -50,13 +50,7 @@ interface message {
     message: string,
     time: string
 }
-interface data_travel {
-    id: number,
-    title: string,
-    lasttime: string,
-    logo: string,
-    messages: Array<message>,
-}
+
 import MsgItem from '@/components/widget/MsgItem.vue';
 import MsgCloud from '@/components/widget/MsgCloud.vue';
 import Travelcomp from '@/components/widget/Travelcomp.vue';
@@ -75,7 +69,7 @@ export default {
             messagesComp: [
                 {
                     id: 1,
-                    title: "Travel Go!",
+                    name: "Travel Go!",
                     lasttime: "15:00",
                     logo: "image/website/travel/travel-logo.jpg",
                     joinYM: "",
@@ -84,7 +78,6 @@ export default {
                         //                             id: 1, isme: false, message: `selamat datang di Travel Go
                         // stock akan kami usahakan se-update mungkin yah mom, kami juga menjual GROSIR jika berminat bisa langsung tinggalkan pesan :)`, time: "Friday 2:20pm"
                         //                         },
-
                         //                         { id: 2, isme: true, message: `Bolehkan saya bertanya tentang tur ini?`, time: "Friday 2:20pm" },
                         //                         { id: 3, isme: false, message: `Ada yang bisa kami bantu kak?`, time: "Friday 2:20pm" },
                         //                         { id: 4, isme: true, message: `Jadi gini , kan aku punya uang pas pasan tapi aku mau jalan jalan ke bali bisa ga kak?`, time: "Friday 2:20pm" },
@@ -92,27 +85,27 @@ export default {
                     ]
                 }, {
                     id: 2,
-                    title: "CV Pertama Subur",
+                    name: "CV Pertama Subur",
                     lasttime: "15:30",
                     logo: "image/website/travel/travel-logo-2.jpg",
                     joinYM: "",
                     messages: []
                 }, {
                     id: 3,
-                    title: "Gamsahamnida Tour",
+                    name: "Gamsahamnida Tour",
                     lasttime: "21:00",
                     logo: "image/website/travel/travel-logo-3.jpg",
                     joinYM: "",
                     messages: []
                 }, {
                     id: 4,
-                    title: "Jujutsu Kaisen",
+                    name: "Jujutsu Kaisen",
                     lasttime: "07:00",
                     logo: "image/website/travel/travel-logo-4.jpg",
                     joinYM: "",
                     messages: []
                 }
-            ]
+            ] as unknown as Array<Agency>
         }
     },
     methods: {

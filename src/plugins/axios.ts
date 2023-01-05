@@ -7,5 +7,5 @@ axios.interceptors.request.use((config) => {
   config!.headers!.Authorization = basicAuth
   return config;
 });
-axios.defaults.baseURL="http://localhost:8000/api"
+axios.defaults.baseURL=import.meta.env.VITE_API_URL
 export default axios;

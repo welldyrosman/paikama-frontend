@@ -5,5 +5,6 @@ export default interface Agency{
     logo:string,
     created_at:string,
     messages: Array<any>;
+    joinYM:string
 
 }

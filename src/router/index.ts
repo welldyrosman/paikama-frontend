@@ -26,7 +26,6 @@ import Test from "@/views/pages/Test/index.vue";
 import TransactionInfoVue from "@/views/pages/CheckoutView/TransactionInfo.vue";
 import PaymentOptionVue from "@/views/pages/CheckoutView/PaymentOption.vue";
 import SettlementVue from "@/views/pages/CheckoutView/Settlement.vue";
-import QrCodeVue from "@/views/pages/CheckoutView/Qrcode.vue";
 import DetailTransactionVue from "@/views/pages/MemberAreaView/DetailTransaction.vue";
 import Simulation from "@/views/pages/XenditView/Simulation.vue"
 const router = createRouter({
@@ -67,7 +66,6 @@ const router = createRouter({
           ],
         },
         { path: "/payment/settlement/:trans_uuid", component: SettlementVue },
-        { path: "/payment/settlement/qr/:trans_uuid", component: QrCodeVue },
         {
           path: "/account",
           component: MemberArea,

@@ -12,7 +12,7 @@ export default defineConfig({
       targets: ["defaults", "not IE 11"],
     }),
   ],
-  base: process.env.NODE_ENV === "production" ? "/paikama/" : "/",
+  
   resolve: {
     dedupe: ["vue"],
     alias: {
