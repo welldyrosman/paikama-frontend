@@ -149,5 +149,11 @@ $font-size-base: 0.875rem;
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(103, 103, 103);
 }
-
+.box-content {
+  border: 1px solid colorVariable.$secondary;
+  border-radius: 1rem;
+  padding: 1rem;
+  max-height: 400px;
+  overflow: auto;
+}
 @import "../../node_modules/bootstrap/scss/bootstrap";

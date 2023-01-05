@@ -25,6 +25,7 @@ import type SelectedOptions from '@/types/SelectedOption';
 import type SubPackage from '@/types/SubPackage';
 import type Package from '@/types/Package';
 import type OptionsResponse from '@/types/Response/TransactionVa';
+import type { PropType } from 'vue';
 
 export default {
     components: { IconBase, IconPlane },
@@ -51,7 +52,7 @@ export default {
             default: {}
         },
         date: {
-            type: Date,
+            type: String as PropType<string>|undefined,
             default: null
         },
 

@@ -2,7 +2,7 @@
 <template>
     <div class="d-flex flex-column">
         <div class="row row-cols-1 row-cols-md-4 g-3">
-            <CatalogCard v-for="item, index in packagedata" :package="item" :seq="index + 1" :key="index" />
+            <CatalogCard v-model:loading="loading" v-for="item, index in packagedata" :package="item" :seq="index + 1" :key="index" />
         </div>
         <div class="text-center">
             <button class="btn btn-bd-primary px-5">Lihat Semua Aktivitas</button>
@@ -16,12 +16,14 @@ export default {
     beforeMount() {
         landingPageService.getAll().then((ret)=>{
             this.packagedata=ret.data;
+            this.loading=false
         })
     },
     components: { CatalogCard },
     data() {
         return {
-            packagedata:[]
+            packagedata:[],
+            loading:true
         }
     },
 }

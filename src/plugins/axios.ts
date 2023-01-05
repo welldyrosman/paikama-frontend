@@ -3,7 +3,6 @@ import { useMemberStore } from "@/stores/members";
 
 axios.interceptors.request.use((config) => {
   const userStore = useMemberStore()
-  console.log("axios config",userStore.token);
   var basicAuth =  'Bearer '+userStore.token
   config!.headers!.Authorization = basicAuth
   return config;

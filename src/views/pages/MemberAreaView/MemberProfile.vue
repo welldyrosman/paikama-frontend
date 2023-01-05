@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <div class="mybox">
         <div class="account-content-title m-3">
                             <div class="f-18 f-sbold">Profil Saya</div>
                             <div class="f-12 text-grey500">Informasi ini akan digunakan untuk mengisi info selanjutnya untuk mempercepat proses pemesanan kamu. Info ini akan disimpan secara aman dan tidak akan dibagikan ke pihak manapun.</div>
@@ -31,7 +31,7 @@
                         <div class="d-flex justify-content-end m-3">
                             <button class="btn btn-primary">Simpan</button>
                         </div>
-    </main>
+    </div>
 </template>
 <style lang="scss" scoped>
 @use "@/assets/colorVariable.scss";

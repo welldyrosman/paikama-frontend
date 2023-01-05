@@ -19,7 +19,7 @@ interface MeetPoint {
 export interface CartData {
   option_selected:OptionSelected;
   prices:Prices;
-  date:Date|undefined;
+  date:string|undefined;
   adultqty:number;
   cartGuide:Info;
   package_active:number;

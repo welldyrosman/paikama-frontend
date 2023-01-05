@@ -1,8 +1,10 @@
 <template>
     <main>
         <loading :opacity="0.9" loader='bars' :active="loadingactive" :is-full-page="true">
-       
-    </loading>
+           
+        </loading>
+        <Alert v-model:show="alertshow" :message="errMsg" v-if="alertshow" />
+
         <div class="mybox">
             <div class="f-20 f-sbold mt-3 mx-3">Metode Pembayaran</div>
             <hr />
@@ -19,15 +21,17 @@
         </div>
         <div class="my-3">Dengan mengklik "Lanjutkan ke Pembayaran" Anda menyetujui aturan, batasan, dan
             Syarat & Ketentuan</div>
-        <button @click="onSelectMethod" :disabled="loadingactive" class="btn btn-primary">  <span v-if="loadingactive" class="spinner-border spinner-border-sm" role="status"
-                            aria-hidden="true"></span>Lanjutkan ke
+        <button @click="onSelectMethod" :disabled="loadingactive" class="btn btn-primary"> <span v-if="loadingactive"
+                class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Lanjutkan ke
             Pembayaran</button>
     </main>
 </template>
 <script lang="ts">
+import Alert from '@/components/widget/Alert.vue';
 import xenditService from '@/services/xendit-service';
 import { useCartStore } from '@/stores/cart';
 import type PaymentMethod from '@/types/PaymentMethod';
+import PaymentMethodData from "@/stores/PaymentMethod.json"
 export default {
     setup() {
         const stores = useCartStore();
@@ -36,127 +40,52 @@ export default {
         };
     },
     mounted() {
-        this.getVaList()
+        this.getVaList();
     },
     methods: {
-        
         getVaList() {
             const vas = xenditService.getva();
             console.log("vas", vas);
         },
         onSelectMethod() {
             var payload = {};
-            
-            if (this.stores.payment_method.type == "VIRTUAL_ACCOUNT") {
-                this.loadingactive=true
+            this.loadingactive = true;
                 payload = {
                     "bank_code": this.stores.payment_method.channel_code,
                     "amount": 1,
-                    "package_active":  this.stores.package_active,
-                    "trip_active":  this.stores.trip_active,
-                    "date":  this.stores.date,
-                    "contact":  this.stores.contact,
-                    "adultqty":  this.stores.adultqty,
+                    "package_active": this.stores.package_active,
+                    "trip_active": this.stores.trip_active,
+                    "date": this.stores.date,
+                    "contact": this.stores.contact,
+                    "adultqty": this.stores.adultqty,
                     "options": this.stores.option_payload,
-                    "meetpoint": this.stores.meetpoint
-
-                }
-                xenditService.createVa(payload).then(ret=>{
-                    this.loadingactive=false;
+                    "meetpoint": this.stores.meetpoint,
+                    "payment_method":this.stores.payment_method
+                };
+                xenditService.createVa(payload).then(ret => {
+                    this.loadingactive = false;
                     this.stores.$reset();
-                    this.$router.push('/payment/settlement/'+ret.data.metadata.transaction_id)
-                })
-            }
-            
+                    this.$router.push("/payment/settlement/" + ret.data.metadata.transaction_id);
+                }).catch(err => {
+                    this.errMsg=err.response.data.message
+                    this.loadingactive = false;
+                    this.alertshow = true;
+                });
+            // if (this.stores.payment_method.type == "VIRTUAL_ACCOUNT") {
+               
+            // }else if (this.stores.payment_method.type == "VIRTUAL_ACCOUNT") {
+                
+            // }
         }
     },
     data() {
         return {
-            paymentmethods: [
-                {
-                    id: 1,
-                    title: "Transfer Bank",
-                    methods: [
-                        {
-                            id: 1,
-                            title: "Transfer bank Mandiri",
-                            icon: "icons/Mandiri.png",
-                            type: "VIRTUAL_ACCOUNT",
-                            channel_code: ""
-                        },
-                        {
-                            id: 2,
-                            title: "Transfer bank BCA (Bank Central Asia)",
-                            icon: "icons/BCA.png",
-                            type: "VIRTUAL_ACCOUNT",
-                            channel_code: ""
-                        },
-                        {
-                            id: 3,
-                            title: "Transfer bank BNI (Bank Negara Indonesia)",
-                            icon: "icons/BNI.png",
-                            type: "VIRTUAL_ACCOUNT",
-                            channel_code: ""
-                        }
-                    ]
-                },
-                {
-                    id: 2,
-                    title: "Virtual Account",
-                    methods: [
-                        {
-                            id: 4,
-                            title: "Mandiri Virtual Account",
-                            icon: "icons/Mandiri.png",
-                            type: "VIRTUAL_ACCOUNT",
-                            channel_code: "MANDIRI"
-                        },
-                        {
-                            id: 5,
-                            title: "BCA Virtual Account",
-                            icon: "icons/BCA.png",
-                            type: "VIRTUAL_ACCOUNT",
-                            channel_code: "BCA"
-                        },
-                        {
-                            id: 6,
-                            title: "BNI Virtual Account",
-                            icon: "icons/BNI.png",
-                            type: "VIRTUAL_ACCOUNT",
-                            channel_code: "BNI"
-                        }
-                    ]
-                },
-                {
-                    id: 3,
-                    title: "Instant Payment",
-                    methods: [
-                        {
-                            id: 7,
-                            title: "Gopay",
-                            icon: "icons/Gopay.png",
-                            type: "VIRTUAL_ACCOUNT",
-                            channel_code: ""
-                        },
-                        {
-                            id: 8,
-                            title: "OVO",
-                            icon: "icons/OVO.png",
-                            type: "VIRTUAL_ACCOUNT",
-                            channel_code: ""
-                        },
-                        {
-                            id: 9,
-                            title: "Dana",
-                            icon: "icons/Dana.png",
-                            type: "VIRTUAL_ACCOUNT",
-                            channel_code: ""
-                        }
-                    ]
-                }
-            ] as unknown as Array<PaymentMethod>,
-            loadingactive:false
-        }
+            alertshow: false,
+            errMsg:"Something Wrong Pelase try again later",
+            paymentmethods:PaymentMethodData as unknown as Array<PaymentMethod>,
+            loadingactive: false
+        };
     },
+    components: { Alert }
 }
 </script>

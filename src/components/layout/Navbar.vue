@@ -30,7 +30,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><router-link to="/account" class="dropdown-item" >Akun Saya</router-link></li>
-                        <li><router-link to="/myTransaction" class="dropdown-item" >Pesanan Saya</router-link></li>
+                        <li><router-link to="/account/orders" class="dropdown-item" >Pesanan Saya</router-link></li>
                         <li><div @click="logout()" class="dropdown-item" href="#">Logout</div></li>
                     </ul>
                 </li>

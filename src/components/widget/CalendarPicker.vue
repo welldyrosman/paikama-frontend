@@ -17,7 +17,7 @@ export default {
         },
         date: {
             default: null,
-            type: Date||null
+            type: String||null
         },
         price_list: {
             type: Array<Price>,

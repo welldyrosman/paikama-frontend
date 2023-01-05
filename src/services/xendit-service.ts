@@ -6,6 +6,10 @@ class XenditService {
     const ret = await http.get("/xendit/balance");
     return ret;
   }
+  async simylateVA(payload){
+    const ret = await http.post<any,VaResponse>(`/xendit/simulation/va/${payload.transaction_uuid}`,{amount:payload.amount});
+    return ret;
+  }
   async createVa(payload){
     const ret = await http.post<any,VaResponse>("/xendit/create_va_transaction",payload);
     return ret;

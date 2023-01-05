@@ -1,16 +1,17 @@
 <template>
     <section class="">
-
+        <Alert v-model:show="alertshow" message="Please Select Date" v-if="alertshow" />
         <div class="pack-option mt-3 p-3 radius">
             <div v-if="inlabel" class="f-med f-16 mb-3">Pilihan Paket</div>
             <div class="f-sbold text-grey500 mb-3">Tanggal berapa kamu ingin berlibur?</div>
-            <CalendarPicker ref="calendar" v-model:prices="cartStore.prices" v-model:date="cartStore.date" 
-            v-model:price_list="price_list" />
+            <CalendarPicker ref="calendar" v-model:prices="cartStore.prices" v-model:date="cartStore.date"
+                v-model:price_list="price_list" />
             <hr />
             <div class="f-sbold mb-3 text-grey500">Tempat mana yang ingin anda kunjungi?</div>
             <div class="row">
                 <div class="col-12 mb-3" v-for="(item, index) in response?.packages" :key="index">
-                    <Radio :value="item.id" v-model:bindval="package_active" :labels="item.title" />
+                    <Radio :value="item.id" :groupname="'TRIP_' + response.id" v-model:bindval="package_active"
+                        :labels="item.title" />
                 </div>
             </div>
             <hr />
@@ -40,14 +41,15 @@
                 <h6 class="f-sbold mb-0">Per Peserta</h6>
                 <small class="f-12 text-grey500">Berlaku untuk peserta diatas usia 3 tahun</small>
                 <div class="row mt-3">
-                    <div class="col-6 d-flex align-items-center">
+                    <div class="col-6 d-flex flex-wrap align-items-center">
                         <span class="f-sbold f-14">{{ $toCurrency(cartStore.prices.basePrice) }}</span><small
                             class="f-12 text-grey500 text-decoration-line-through">
                             {{ $toCurrency(cartStore.prices.befBasePrice) }}</small>
                     </div>
                     <div class="col-6">
                         <div class="input-group">
-                            <button class="btn btn-bd-primary " @click="cartStore.adultqty > 0 ? cartStore.adultqty-- : cartStore.adultqty"
+                            <button class="btn btn-bd-primary "
+                                @click="cartStore.adultqty > 0 ? cartStore.adultqty-- : cartStore.adultqty"
                                 type="button" id="button-addon1">-</button>
                             <input type="text" class="form-control text-center" v-model="cartStore.adultqty"
                                 aria-label="Amount (to the nearest dollar)">
@@ -66,12 +68,14 @@
                             </div>
                             <div class="col-6">
                                 <div class="input-group">
-                                    <button class="btn btn-bd-primary" @click="option_selected[item.id+'_qty'] > 0 ? option_selected[item.id+'_qty']-- : option_selected[item.id+'_qty']"
+                                    <button class="btn btn-bd-primary"
+                                        @click="option_selected[item.id + '_qty'] > 0 ? option_selected[item.id + '_qty']-- : option_selected[item.id + '_qty']"
                                         type="button" id="button-addon1">-</button>
-                                    <input type="text" class="form-control text-center" v-model="option_selected[item.id+'_qty']"
+                                    <input type="text" class="form-control text-center"
+                                        v-model="option_selected[item.id + '_qty']"
                                         aria-label="Amount (to the nearest dollar)">
-                                    <button class="btn btn-bd-primary" @click="option_selected[item.id+'_qty']++" type="button"
-                                        id="button-addon1">+</button>
+                                    <button class="btn btn-bd-primary" @click="option_selected[item.id + '_qty']++"
+                                        type="button" id="button-addon1">+</button>
                                 </div>
                             </div>
                         </div>
@@ -81,21 +85,21 @@
                 <h6 class="f-sbold mb-0">Additional Price</h6>
                 <small class="f-12 text-grey500">Berlaku untuk peserta diatas usia 3 tahun</small>
                 <template v-for="(item, index) in option_obj" :key="index">
-                    <div v-if="!item.is_forperson" class="d-flex justify-content-between mt-3">
+                    <div v-if="!item.is_forperson" class="d-flex flex-wrap justify-content-between mt-3">
                         <div class="f-sbold">{{ `${item.title} : ${item.items.title}` }}</div>
-                        <div class="f-sbold">{{ `+ ${$toCurrency(item.items.price)}`  }}</div>
+                        <div class="f-sbold">{{ `+ ${$toCurrency(item.items.price)}` }}</div>
                     </div>
                 </template>
                 <hr class="hr-devider" />
                 <div class="total">
                     <div class="text-grey500">Harga Paket</div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex flex-wrap align-items-center">
                         <div class="f-24 f-sbold">{{ $toCurrency(totalprice) }}</div>
                         <div class="ms-1 text-grey500 text-decoration-line-through">
                             {{ $toCurrency(totalpricebefore) }}
                         </div>
                     </div>
-                    <button @click="$router.push('/checkout')" class="btn btn-primary form-control mt-3">Pesan Paket
+                    <button @click="checkout" class="btn btn-primary form-control mt-3">Pesan Paket
                         Ini</button>
                     <button @click="$router.push('/compare')"
                         class="btn btn-outline-grey600 form-control mt-3">Bandingkan Paket Ini</button>
@@ -115,13 +119,28 @@ import type SubPackage from '@/types/SubPackage';
 import type Price from '@/types/Price';
 import type Options from '@/types/Options';
 import type SelectedOptions from '@/types/SelectedOption';
-import { useCartStore } from '@/stores/cart';
+import { useCartStore, type CartData } from '@/stores/cart';
+import Alert from '../widget/Alert.vue';
+import { useCompareStore } from '@/stores/compare';
 export default {
-    setup() {
+    setup(props) {
+        const compare = useCompareStore();
         const cartStore = useCartStore();
-        return {
-            cartStore
+
+        if (props.isCompare) {
+            let comStore = {} as CartData;
+            for (var i = 0; i < compare.compare_cart.length; i++) {
+                if (props.response?.id == compare.compare_cart[i].trip_active) {
+                    comStore = compare.compare_cart[i]
+                }
+            }
+            return { cartStore: comStore, store: cartStore }
+        } else {
+            return {
+                cartStore, store: cartStore
+            }
         }
+
     },
     watch: {
         package_active: {
@@ -143,6 +162,14 @@ export default {
     },
     emits: ['update:package_active'],
     props: {
+        compareActive: {
+            type: Number || null,
+            default: null
+        },
+        isCompare: {
+            type: Boolean,
+            default: false
+        },
         inlabel: {
             type: Boolean,
             default: false
@@ -171,16 +198,16 @@ export default {
     },
     computed: {
         totalprice(): number {
-            let addprice=0;
-            let packprice=0;
+            let addprice = 0;
+            let packprice = 0;
             this.option_obj.forEach(element => {
-                if(!element.is_forperson){
-                    addprice+=element.items.price*1;
-                }else{
-                    packprice+=(element.items.price*this.option_selected[element.id+'_qty']);
+                if (!element.is_forperson) {
+                    addprice += element.items.price * 1;
+                } else {
+                    packprice += (element.items.price * this.option_selected[element.id + '_qty']);
                 }
             });
-            return (this.cartStore.adultqty * this.cartStore.prices.basePrice)+addprice+packprice;
+            return (this.cartStore.adultqty * this.cartStore.prices.basePrice) + addprice + packprice;
         },
         totalpricebefore(): number {
             return this.cartStore.adultqty * this.cartStore.prices.befBasePrice;
@@ -194,12 +221,12 @@ export default {
 
         option_obj(): Array<SelectedOptions> {
             let objSelected = [] as Array<SelectedOptions>;
-            this.package?.options.forEach(options => {
+            this.package?.options?.forEach(options => {
                 var newobj = {} as SelectedOptions;
                 newobj.id = options.id
                 newobj.title = options.title
                 newobj.is_forperson = options.is_forperson
-                options.items.forEach(element => {
+                options?.items?.forEach(element => {
                     if (this.option_selected[options.id] == element.id) {
                         newobj.items = element;
                         objSelected.push(newobj);
@@ -209,23 +236,33 @@ export default {
             return objSelected;
         }
     },
-    data() {
-        return {
+    methods: {
+        checkout() {
+            if (!this.isCompare) {
+                if (!this.cartStore.date) {
+                    this.alertshow = true;
+                }
+            } else {
+                this.store.$patch(this.cartStore)
+            }
+            this.$router.push('/checkout')
         }
     },
-
-    methods: {},
-    components: { Radio, IconBase, IconPlane, TransPack, CalendarPicker }
+    data() {
+        return {
+            alertshow: false
+        }
+    },
+    components: { Radio, IconBase, IconPlane, TransPack, CalendarPicker, Alert }
 }
 </script>
 <style scoped lang="scss">
 @use '@/assets/colorVariable.scss';
 
-
 .detail-trans {
     background-color: #FFFFFF;
 
-   
+
 }
 
 .pack-option {

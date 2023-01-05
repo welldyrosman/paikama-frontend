@@ -5,12 +5,14 @@
             <Breadcumb :paths="paths" class="mt-5 pt-4" />
             <div class="row mt-3">
                 <div class="col-lg-6 col-md-12 ps-3 pe-1">
-                    <img class="img-crop" :src="$getImage(package?.images[0]?.img_path)" />
+                    <Skeletor height="335" v-if="loading" class="mb-1" />
+                    <img class="img-crop" v-else :src="$getImage(package?.images[0]?.img_path)" />
                 </div>
                 <div class="col-lg-6 d-none d-lg-block">
                     <div class="row">
                         <div class="col-lg-6 px-1" v-for="(item, index) in package.images.slice(1)" :key="index">
-                            <img :src="$getImage(item?.img_path)" class="img-crop-sm"
+                            <Skeletor height="165" v-if="loading" class="mb-1" />
+                            <img :src="$getImage(item?.img_path)" v-else class="img-crop-sm"
                                 :class="[{ 'mt-8': (index == 3 || index == 2) }]" />
                         </div>
 
@@ -19,8 +21,10 @@
             </div>
             <div class="row">
                 <div class="col-lg-7">
-                    <h5 class="f-sbold mt-4 f-24">{{ package.title }}</h5>
-                    <div class="titlefoot d-flex align-items-center text-truncate">
+                    <Skeletor width="75%" height="30" v-if="loading" class="mb-1" />
+                    <h5 v-else class="f-sbold mt-4 f-24">{{ package.title }}</h5>
+                    <Skeletor  height="30" v-if="loading" class="mb-1" />
+                    <div v-else class="titlefoot d-flex align-items-center text-truncate">
                         <span class="text-warning me-3"><i class="bi bi-star-fill "></i>
                             {{ Math.round(package.transaction_avg_rating) }}</span>
                         <div>({{ package.comments_count }} Ulasan)</div>
@@ -30,8 +34,12 @@
                         <Travelcomp :data="package.agency" />
                     </div>
                     <section class="mt-5">
-                        <h5 class="f-sbold f-24">Tentang Aktifitas Ini</h5>
-                        <div class="content mt-3">{{ package.description }}</div>
+                        <Skeletor  height="30" v-if="loading" class="mb-1" />
+                        <h5 v-else class="f-sbold f-24">Tentang Aktifitas Ini</h5>
+                        <template v-if="loading">
+                            <Skeletor v-for="(item, index) in 10" :key="index"  height="30"  class="mb-1" />
+                        </template>
+                        <div v-else class="content mt-3">{{ package.description }}</div>
                     </section>
                     <!-- <TransactionBar class="d-lg-none" 
                     v-model:response="package"
@@ -39,8 +47,13 @@
                     v-model:package="package_selected"
                     v-model:options="kindtrip" /> -->
                     <hr />
-                    <h4 class="f-sbold mt-3 f-24">Detail Paket Ini</h4>
+                    <Skeletor  height="30" width="50%" v-if="loading" class="mb-1" />
+                    <h4 v-else class="f-sbold mt-3 f-24">Detail Paket Ini</h4>
                     <div class="box-content">
+                        <template v-if="loading">
+                            <Skeletor v-for="(item, index) in 10" :key="index"  height="30"  class="mb-1" />
+                        </template>
+                        <template v-else>
                         <h5 class="f-sbold f-20">Itenerary</h5>
                         <Itenerary v-model:itineraries="itineraries" />
                         <h5 class="f-sbold f-20">Termasuk</h5>
@@ -48,6 +61,7 @@
                         <h5 class="f-sbold f-20">Tidak Termasuk</h5>
                         <Infolist v-model:data="excludes" />
                         <h5 class="f-sbold f-20">Info Tambahan</h5>
+                    </template>
                         <!-- <Infolist :data="package.additionalInfos" /> -->
                     </div>
 
@@ -148,7 +162,6 @@ export default {
     },
   
     mounted() {
-      
         landingPageService.findByTitle(this.$route.params.place).then(ret => {
             this.queryComments();
             this.package = ret as Package;
@@ -156,8 +169,8 @@ export default {
                 this.cartStore.trip = this.package;
                 this.cartStore.trip_active = this.package.id;
                 this.cartStore.package_active = this.package.packages[0].id;
-
             }
+            this.loading=false;
         })
 
     },
@@ -165,6 +178,7 @@ export default {
         return {
             paths: breadcumbData,
             pagination: {} as PaginationType,
+            loading:true,
             package: {
                 images: [],
                 city: {}
@@ -175,7 +189,7 @@ export default {
         package_selected(nval, oldval) {
             this.cartStore.option_selected = {};
             nval.options.forEach(opt => {
-                this.cartStore.option_selected[opt.id] = opt.items[0].id;
+                this.cartStore.option_selected[opt.id] = opt?.items[0]?.id;
                 this.cartStore.option_selected[opt.id + "_qty"] = 1 as any;
             });
         },
@@ -201,7 +215,7 @@ export default {
             return this.package_selected?.itineraries
         },
         package_selected(): SubPackage {
-            const sub = this.package.packages?.find(subpack => subpack.id == this.cartStore.package_active)
+            const sub = this.package.packages?.find(subpack => subpack.id == this.cartStore.package_active);
             return sub as SubPackage;
         },
     },
@@ -217,13 +231,7 @@ export default {
 <style scoped lang="scss">
 @use '@/assets/colorVariable.scss';
 
-.box-content {
-    border: 1px solid colorVariable.$secondary;
-    border-radius: 1rem;
-    padding: 1rem;
-    max-height: 400px;
-    overflow: auto;
-}
+
 
 .img-crop {
     width: 100%;

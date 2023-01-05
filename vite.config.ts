@@ -14,6 +14,7 @@ export default defineConfig({
   ],
   base: process.env.NODE_ENV === "production" ? "/paikama/" : "/",
   resolve: {
+    dedupe: ["vue"],
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },

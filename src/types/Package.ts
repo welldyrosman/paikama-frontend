@@ -6,6 +6,7 @@ import type Country from "./Country";
 import type Comment from "./Comment";
 import type CommentPic from "./CommentPic";
 import type Price from "./Price";
+import type RatingCount from "./RatingCount";
 
 export default interface Package{
     id:number,
@@ -26,5 +27,10 @@ export default interface Package{
     tripkind: Array<any>,
     agency:Agency,
     positions:PositionPack,
-    images:any
+    images:any,
+    image:{
+        img_path:string
+    },
+    transaction_count:number,
+    ratings:Array<RatingCount>
 }

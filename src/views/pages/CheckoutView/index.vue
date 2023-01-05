@@ -123,7 +123,6 @@ export default {
     },
    
     mounted() {
-        console.log("payload",this.cartStore.option_payload)
         this.xenditfunc();
         var d = new Date();
         this.endDate = d.setMinutes(d.getMinutes() + 90);
@@ -175,12 +174,12 @@ export default {
         },
         option_obj(): Array<SelectedOptions> {
             let objSelected = [] as Array<SelectedOptions>;
-            this.package?.options.forEach(options => {
+            this.package?.options?.forEach(options => {
                 var newobj = {} as SelectedOptions;
                 newobj.id = options.id
                 newobj.title = options.title
                 newobj.is_forperson = options.is_forperson
-                options.items.forEach(element => {
+                options?.items?.forEach(element => {
                     if (this.option_selected[options.id] == element.id) {
                         newobj.items = element;
                         objSelected.push(newobj);

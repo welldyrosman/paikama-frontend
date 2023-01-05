@@ -2,19 +2,28 @@
     <div class="mybox p-2 mb-2">
         <div class="row">
             <div class="col-md-3">
-                <img src="@/assets/image/website/city/bali.jpg" class="img-fluid rounded" />
+                <img :src="$getImage(data?.trip?.image.img_path)" class="img-fluid rounded" />
             </div>
             <div class="col-md-9">
-                <div class="d-flex justify-content-between">
-                    <div class="f-16 f-sbold text-grey600">No Order : 123423452</div>
-                    <div class="f-12 text-align-center badge bg-success">Sudah Dibayar</div>
+                <div @click="$router.push(`/account/orders/${data.uuid}`)" class="pointer">
+                    <div class="d-flex justify-content-between">
+                        <div class="f-16 f-sbold text-grey600">
+                            No Order :
+                            {{ data.trip.id + "T" + data.package.id + "P" + data.member_id + "M" + data.id + "-" + data.book_date.replace(/-/g, "") + "-" + data.id }}
+                        </div>
+                        <div class="f-12 text-align-center badge " :class="classDic[data.payment_status.toUpperCase()]?.class">{{ classDic[data.payment_status.toUpperCase()]?.label }}</div>
+                    </div>
+                    <div class="f-16 f-sbold">{{ data?.trip?.title }}</div>
+                    <hr class="hr-devider" />
+                    <div class="f-sbold">Paket - {{ data?.package?.title }}</div>
                 </div>
-                <div class="f-16 f-sbold">Trip Kepulauan Nusa Penida By Travel GO!</div>
-                <hr class="hr-devider" />
-                <div class="f-sbold">Paket - Nusa Penida Barat</div>
                 <div class="d-flex flex-wrap">
-                    <div v-for="(item, index) in 6" :key="index" class="me-2 mt-2 bg-grey100 rounded py-1 px-2">
-                        <span class="text-grey600"><i class="bi bi-calendar3"></i> 31 Desember 2021</span>
+                    <div class="me-2 mt-2 bg-grey100 rounded py-1 px-2">
+                        <span class="text-grey600"><i class="bi bi-calendar3"></i> {{ $getDMY(data?.book_date) }}</span>
+                    </div>
+                    <div v-for="(item, index) in data.optionitems" :key="index"
+                        class="me-2 mt-2 bg-grey100 rounded py-1 px-2">
+                        <span class="text-grey600"><i class="bi bi-check"></i> {{ item.title }}</span>
                     </div>
                 </div>
             </div>
@@ -33,7 +42,7 @@
                     </li>
                     <li>
                         <div class="pointer dropdown-item">
-                           Bantuan
+                            Bantuan
                         </div>
                     </li>
                 </ul>
@@ -42,3 +51,37 @@
         </div>
     </div>
 </template>
+<script lang="ts">
+import type TransactionHist from '@/types/Response/TransactionHist';
+import type TransactionVa from '@/types/Transaction';
+
+
+export default {
+    props: {
+        data: {
+            type: Object as () => TransactionHist,
+            default: {
+            }
+        }
+    },
+    data() {
+        return {
+            classDic:{
+                PENDING:{
+                    label:"Menunggu Pembayaran",
+                    class:"bg-warning"
+                },
+                SUCCEEDED:{
+                    label:"Telah Dibayar",
+                    class:"bg-success"
+                }
+            },
+        }
+    },
+}
+</script>
+<style lang="scss">
+.dropdown-toggle::after {
+    display: none !important
+}
+</style>

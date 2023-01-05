@@ -1,6 +1,7 @@
 <template>
     <div class="card card-catalog">
-        <Carousel :wrap-around="true">
+        <Skeletor v-if="loading" height="150" />
+        <Carousel v-else :wrap-around="true">
             <Slide v-for="slide in package.images" :key="slide.id">
                 <img :src="$getImage(slide?.img_path)" class="img-fluid card-img-top img-catalog  " alt="...">
             </Slide>
@@ -9,7 +10,7 @@
                 <Pagination />
             </template>
         </Carousel>
-        <div @click="$router.push('/compare')" class="compare-btn px-2 py-1 m-2 text-white text-xs-center">
+        <div @click="compare" class="compare-btn px-2 py-1 m-2 text-white text-xs-center">
             <IconBase iconName="compare" width="1rem" height="1rem">
                 <IconCompare />
             </IconBase>
@@ -17,42 +18,67 @@
         </div>
         <i class="bi bi-heart text-white position-absolute me-4 mt-2 top-0 end-0 wishlist"></i>
         <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <div @click="seeDetail(package.slug)" class="card-title pointer f-med mb-0 text-decoration-none text-grey800">
-                    {{ package.title }}
+            <template v-if="loading">
+                <Skeletor height="20" class="mb-1" />
+                <Skeletor height="20" class="mb-1" width="50%" />
+                <div class="d-flex align-items-center mb-1">
+                    <Skeletor circle size="48" class="post__avatar" />
+                    <Skeletor height="20" class="ms-1" width="50%" />
                 </div>
-                <span class="text-warning f-sbold"><i
-                        class="bi bi-star-fill me-1 text-warning"></i>{{ Math.round(package.transaction_avg_rating)
-                        }}</span>
-            </div>
-            <p class="card-text text-muted mb-0">{{ package.city.title }}</p>
-            <Travelcomp :data="package.agency" class="mt-2" />
-            <div class="discount d-flex my-2">
-                <div class="text-decoration-line-through text-muted"><span
-                        class="badge bg-danger f-med me-2 p-2">{{ $getPercent(package?.minprice?.price_before,
-                                package.minprice.price)
-                        }}%</span>{{ $toCurrency(package.minprice.price_before) }}
+                <Skeletor height="20" class="mb-1" />
+                <Skeletor height="20" class="mb-1" width="50%" />
+            </template>
+            <template v-else>
+                <div class="d-flex justify-content-between">
 
+                    <div @click="seeDetail(package.slug)"
+                        class="card-title pointer f-med mb-0 text-decoration-none text-grey800">
+                        {{ package.title }}
+                    </div>
+                    <span class="text-warning f-sbold"><i class="bi bi-star-fill me-1 text-warning"></i>{{
+        Math.round(package.transaction_avg_rating)
+}}</span>
                 </div>
-            </div>
-            <div class="price d-flex">
-                <h6 class="f-sbold f-16">{{ $toCurrency(package.minprice.price) }}</h6><small class="text-muted ms-1"
-                    style="font-size:0.7rem ;">Per
-                    Pax</small>
-            </div>
+                <p class="card-text text-muted mb-0">{{ package.city.title }}</p>
+                <Travelcomp :data="package.agency" class="mt-2" />
+                <div class="discount d-flex my-2">
+                    <div class="text-decoration-line-through text-muted"><span class="badge bg-danger f-med me-2 p-2">{{
+        $getPercent(package?.minprice?.price_before,
+            package.minprice.price)
+}}%</span>{{ $toCurrency(package.minprice.price_before) }}
+
+                    </div>
+                </div>
+                <div class="price d-flex">
+                    <h6 class="f-sbold f-16">{{ $toCurrency(package.minprice.price) }}</h6><small
+                        class="text-muted ms-1" style="font-size:0.7rem ;">Per
+                        Pax</small>
+                </div>
+            </template>
         </div>
     </div>
 </template>
 <script lang="ts">
+import { useCompareStore } from '@/stores/compare';
 import type Package from '@/types/Package';
 
 import IconBase from "../IconBase.vue";
 import IconCompare from "../icons/IconCompare.vue";
 import Travelcomp from './Travelcomp.vue';
 export default {
+    setup() {
+        const store = useCompareStore();
+        return {
+            store
+        }
+    },
     props: {
+        loading: {
+            type: Boolean,
+            default: true
+        },
         package: {
-            type: Object as ()=>Package,
+            type: Object as () => Package,
             default: {
                 images: [],
                 agency: {}
@@ -63,6 +89,12 @@ export default {
         }
     },
     methods: {
+        compare() {
+            if (!this.$checkCompare(this.package)) {
+                this.store.comp_data.push(this.package);
+            }
+            this.$router.push('/compare');
+        },
         getimage(path: string): string {
             return new URL(`/src/assets/${path}`, import.meta.url).href
         },
@@ -72,7 +104,7 @@ export default {
             })
         }
     },
-   
+
     data() {
         return {
             item: {

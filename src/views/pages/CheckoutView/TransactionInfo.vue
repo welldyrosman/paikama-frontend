@@ -1,5 +1,6 @@
 <template>
     <main>
+        <Alert v-model:show="alertshow" message="Mohon Lengkapi Informasi Pemesan" v-if="alertshow" />
         <div class="mybox">
             <div class="f-20 f-sbold mt-3 mx-3">Informasi Pemesanan</div>
             <hr />
@@ -8,7 +9,7 @@
                 <div class="row mt-3">
                     <div class="col-6">
                         <label>Hotel / Tempat Penjemputan</label>
-                        <select type="text" v-model="cartStore.meetpoint.meeting_point"
+                        <select  :class="cartStore.meetpoint.meeting_point?'is-valid':'is-invalid'" type="text" v-model="cartStore.meetpoint.meeting_point"
                             placeholder="isi nama Hotel / Alamat" class="form-control">
                             <option v-for="(item, index) in meetingpoints" :value="item" :key="index">
                                 @{{ item.pick_time }} : {{ item.title }}
@@ -27,7 +28,7 @@
                                     <span class="dropdown-item" href="#">{{ item.title }}</span>
                                 </li>
                             </ul>
-                            <input type="text" class="form-control" v-model="cartStore.meetpoint.contact"
+                            <input type="number" :class="cartStore.meetpoint.contact?'is-valid':'is-invalid'" class="form-control" v-model="cartStore.meetpoint.contact"
                                 aria-label="Text input with dropdown button">
                         </div>
                     </div>
@@ -50,7 +51,7 @@
         </div>
         <div class="my-3">Dengan mengklik "Lanjutkan ke Pembayaran" Anda menyetujui aturan, batasan, dan
             Syarat & Ketentuan</div>
-        <button @click="$router.push('/checkout/payment')" class="btn btn-primary">Lanjutkan ke
+        <button @click="topayment" class="btn btn-primary">Lanjutkan ke
             Pembayaran</button>
     </main>
 </template>
@@ -60,12 +61,13 @@ import SavedContact from '@/components/widget/SavedContact.vue';
 import ContactVue from '@/components/widget/Contact.vue';
 import { useCartStore } from '@/stores/cart';
 import landingPageService from '@/services/landing-page-service';
+import Alert from '@/components/widget/Alert.vue';
 interface currencysType {
     id: number,
     title: string
 }
 export default {
-    components: { SavedContact, ContactVue },
+    components: { SavedContact, ContactVue, Alert },
     setup() {
         const cartStore = useCartStore();
         return {
@@ -73,7 +75,7 @@ export default {
         }
     },
     props: {
-      
+
         activeCurrency: {
             type: Object as () => currencysType,
             default: {
@@ -94,8 +96,42 @@ export default {
     },
     data() {
         return {
-            meetingpoints:[] as Array<MeetingPoint>
+            meetingpoints: [] as Array<MeetingPoint>,
+            alertshow:false
         }
     },
+    computed: {
+        meetingComplete(): boolean {
+            var objcheck = ["firstname", "lastname", "phone", "email"];
+            var ret=true
+            objcheck.forEach(item => {
+                if (!this.cartStore.contact[item]) {
+                    ret=false
+                }
+                if(item=='email'){
+                    if(!this.$isValidMail(this.cartStore.contact.email)){
+                        ret=false;
+                    }
+                }
+            })
+            return ret
+        },
+        contactComplete(): boolean {
+            var ret=true
+            if(!this.cartStore.meetpoint.contact||!this.cartStore.meetpoint.meeting_point.id){
+                ret=false
+            }
+            return ret
+        }
+    },
+    methods: {
+        topayment() {
+            if (!this.meetingComplete||!this.contactComplete) {
+                this.alertshow=true
+            } else {
+                this.$router.push('/checkout/payment')
+            }
+        }
+    }
 }
 </script>

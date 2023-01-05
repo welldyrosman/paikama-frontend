@@ -2,7 +2,7 @@
     <div class="row border rounded p-2 my-3 mx-1">
         <div class="col-6">
             <label class="f-med">Nama Depan</label>
-            <input class="form-control" v-model="cartStore.contact.firstname" />
+            <input class="form-control" :class="contact.firstname?'is-valid':'is-invalid'" v-model="cartStore.contact.firstname" />
             <label class="f-med">No Handphone</label>
             <div class="input-group mb-3">
                 <button class="btn btn-bd-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -13,16 +13,21 @@
                         <span class="dropdown-item" href="#">{{ item.title }}</span>
                     </li>
                 </ul>
-                <input type="text" class="form-control" v-model="contact.phone" aria-label="Text input with dropdown button">
+                <input type="number" :class="contact.phone?'is-valid':'is-invalid'" class="form-control" v-model="contact.phone"
+                    aria-label="Text input with dropdown button">
+                    
             </div>
+           
+            
         </div>
         <div class="col-6">
             <label class="f-med">Nama Belakang</label>
-            <input class="form-control" v-model="contact.lastname"/>
+            <input class="form-control" :class="contact.lastname?'is-valid':'is-invalid'" v-model="contact.lastname" />
             <label class="f-med">Email</label>
-            <input class="form-control" v-model="contact.email"/>
+            <input type="email" class="form-control" :class="contact.email&&$isValidMail(contact.email)?'is-valid':'is-invalid'" v-model="contact.email" />
+           
         </div>
-        <hr/>
+        <hr />
         <div class="d-flex justify-content-end">
             <button @click="cancel" class="btn btn-bd-primary mx-2">Batal</button>
             <button @click="savetemp" class="btn btn-primary">Simpan</button>
@@ -43,14 +48,14 @@ export default {
             cartStore,
         }
     },
-    props:{
-        contact:{
-            type:Object as ()=>Contact,
-            default:{}
+    props: {
+        contact: {
+            type: Object as () => Contact,
+            default: {}
         },
-        addcontact:{
-            type:Boolean,
-            default:true
+        addcontact: {
+            type: Boolean,
+            default: true
         }
     },
     mounted() {
@@ -68,16 +73,26 @@ export default {
                 id: 1,
                 title: "+62"
             } as currencysType,
+            msg: {
+                email: ''
+            }
         }
     },
-    emits:['update:addcontact'],
-    methods:{
-        cancel(){
-            this.$emit('update:addcontact',false);
+    emits: ['update:addcontact'],
+    methods: {
+        cancel() {
+            this.$emit('update:addcontact', false);
         },
-        savetemp(){
-            this.$emit('update:addcontact',false);
-            this.contact.id=1;
+        savetemp() {
+            this.$emit('update:addcontact', false);
+            this.contact.id = 1;
+        },
+        validateEmail() {
+            if (!this.$isValidMail(this.contact.email)) {
+                this.msg['email'] = 'Please enter a valid email address';
+            } else {
+                this.msg['email'] = '';
+            }
         }
     }
 }

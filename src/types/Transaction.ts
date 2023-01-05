@@ -1,16 +1,8 @@
+import type Detail from "./DetailTrans";
 import type Package from "./Package";
 import type SelectedOptions from "./SelectedOption";
 import type SubPackage from "./SubPackage";
-interface Detail {
-    id: number;
-    transaction_id: number;
-    trip_id: number;
-    trip_package_id: number;
-    qty: number;
-    price: number;
-    created_at: Date;
-    updated_at: Date;
-  }
+
 export default interface TransactionVa {
     details: Detail;
     trip: Package;
@@ -20,7 +12,7 @@ export default interface TransactionVa {
     member_id: number;
     trip_id: number;
     trip_package_id: number;
-    book_date: Date;
+    book_date: string;
     payment_time: string;
     rating: number;
     payment_status: string;
