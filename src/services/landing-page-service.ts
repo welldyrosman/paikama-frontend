@@ -5,6 +5,10 @@ class LandingPageService {
       const ret = await http.get("/wisata");
       return ret.data;
     }
+    async destinationbyprov(){
+      const ret = await http.get("/destination-by-province");
+      return ret.data;
+    }
     async findByTitle(title:string|string[]) {
       const ret = await http.get(`/wisata/${title}`);
       return ret.data;

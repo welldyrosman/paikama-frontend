@@ -3,9 +3,9 @@
     <div class="row row-cols-md-3 row-cols-2 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 g-4">
         <div v-for="(item, index) in cities " :key="index" class="col highlight-item onpagination-load ">
 
-            <div @click="select(item as unknown as City)" style="--bs-aspect-ratio: 60%;"
+            <div @click="select(item)" style="--bs-aspect-ratio: 60%;"
                 class="ratio d-block rounded-3 overflow-hidden" href="/id/id/destinasi/sumatra/danau-toba">
-                <img :src="getlogo(item.image)" class=" bg-img w-100 h-100 object-fit-cover position-absolute top-0"
+                <img :src="$getImage(item.image)" class=" bg-img w-100 h-100 object-fit-cover position-absolute top-0"
                     alt="Danau Toba" loading="lazy">
                 <div
                     class="overlay-text position-absolute top-0 w-100 px-3 d-flex h-100 justify-content-start align-items-end">
@@ -18,8 +18,9 @@
 </template>
 <script lang="ts">
 import mycities from '@/stores/indoposition.json'
-import type City from '@/types/City'
+import type Province from '@/types/Province'
 import { useCityStore } from '@/stores/city'
+import landingPageService from '@/services/landing-page-service';
 export default {
     setup() {
         const stores = useCityStore();
@@ -27,9 +28,14 @@ export default {
             stores
         };
     },
+    async mounted() {
+        const ret=await landingPageService.destinationbyprov();
+        this.cities=ret.data;
+        console.log(ret.data);
+    },
     data() {
         return {
-            cities: mycities.slice(0, 10)
+            cities: [] as Array<Province>
         }
     },
     methods: {
@@ -41,7 +47,7 @@ export default {
                 .replace(/ /g, '-')
                 .replace(/[^\w-]+/g, '');
         },
-        select(item: City) {
+        select(item: Province) {
             this.stores.cities = item
             this.$router.push('/city-view/' + this.convertToSlug(item.title));
         }
