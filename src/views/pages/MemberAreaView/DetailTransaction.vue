@@ -21,7 +21,7 @@
         <div class="mybox p-2">
             <div class="row">
                 <div class="col-md-3">
-                    <img src="@/assets/image/website/city/bali.jpg" class="img-fluid rounded" />
+                    <img :src="$getImage('provincies/city-01.jpg')" class="img-fluid rounded" />
                 </div>
                 <div class="col-md-9">
                     <div class="d-flex justify-content-between">

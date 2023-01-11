@@ -5,7 +5,7 @@
             <div v-for="(item, index) in items" :key="index" class="col-md-4 mb-3 highlight-item onpagination-load ">
                 <RouterLink to="/" style="--bs-aspect-ratio: 60%;" class="ratio d-block rounded-3 overflow-hidden"
                     href="/id/id/destinasi/sumatra/danau-toba">
-                    <img src="@/assets/image/website/city/city-01.jpg"
+                    <img :src="$getImage(item.image)"
                         class=" bg-img w-100 h-100 object-fit-cover position-absolute top-0" alt="Danau Toba"
                         loading="lazy">
                     <div
