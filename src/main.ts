@@ -22,7 +22,6 @@ import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 import 'vue3-carousel/dist/carousel.css'
 import 'vue-skeletor/dist/vue-skeletor.css';
 import 'animate.css';
-import '@aws-amplify/ui-vue/styles.css';
 
 const pinia =createPinia();
 pinia.use(piniaPluginPersistedstate)
