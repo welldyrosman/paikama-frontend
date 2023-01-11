@@ -2,7 +2,6 @@ import type { CartData, OptionSelected } from "@/stores/cart";
 import { useCompareStore } from "@/stores/compare";
 import type Package from "@/types/Package";
 import type { App } from "vue";
-import AWS from "aws-sdk";
 declare module "vue" {
   interface ComponentCustomProperties {
     $toCurrency: (nominal: number) => String;
