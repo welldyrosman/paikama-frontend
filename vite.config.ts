@@ -17,10 +17,11 @@ export default defineConfig({
     dedupe: ["vue"],
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+      find: './runtimeConfig',
+      replacement: './runtimeConfig.browser',
     },
   },
   build: {
     chunkSizeWarningLimit: 1600,
-  
   },
 });

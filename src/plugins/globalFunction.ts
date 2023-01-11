@@ -1,7 +1,8 @@
-import type { CartData,OptionSelected } from "@/stores/cart";
+import type { CartData, OptionSelected } from "@/stores/cart";
 import { useCompareStore } from "@/stores/compare";
 import type Package from "@/types/Package";
 import type { App } from "vue";
+import AWS from "aws-sdk";
 declare module "vue" {
   interface ComponentCustomProperties {
     $toCurrency: (nominal: number) => String;
@@ -45,11 +46,17 @@ export default function registerGlobalProp(app: App) {
       cartstore.trip = trip;
       cartstore.trip_active = trip.id;
       cartstore.package_active = trip.packages[0].id;
-      cartstore.prices={basePrice:0,befBasePrice:0}
-      cartstore.contact={firstname:"",lastname:"",phone:"",email:"",id:null}
-      cartstore.adultqty=1;
-      cartstore.option_selected={} as OptionSelected,
-      store.compare_cart.push(cartstore);
+      cartstore.prices = { basePrice: 0, befBasePrice: 0 };
+      cartstore.contact = {
+        firstname: "",
+        lastname: "",
+        phone: "",
+        email: "",
+        id: null,
+      };
+      cartstore.adultqty = 1;
+      (cartstore.option_selected = {} as OptionSelected),
+        store.compare_cart.push(cartstore);
     }
     return isExist;
   };
@@ -64,8 +71,9 @@ export default function registerGlobalProp(app: App) {
   };
 
   app.config.globalProperties.$getImage = (
-    path: string = "/members/member-1.jpg"
+    path: string = "uploads/DUMMY-02.png"
   ) => {
+   
     if (path) {
       let storagepath = import.meta.env.VITE_CDN_URL;
       return new URL(storagepath + path, import.meta.url).href;

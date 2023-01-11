@@ -10,10 +10,13 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "^3.1.2",
     "@fawmi/vue-google-maps": "0.9.67",
     "@types/faker": "^6.6.9",
     "@vueuse/rxjs": "^9.6.0",
     "animate.css": "^4.1.1",
+    "aws-amplify": "^5.0.9",
+    "aws-sdk": "^2.1291.0",
     "axios": "^1.2.0",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",

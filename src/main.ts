@@ -13,7 +13,6 @@ import VueGoogleMaps from '@fawmi/vue-google-maps';
 import Loading from 'vue3-loading-overlay';
 
 
-
 import './assets/base.css'
 import './assets/main.scss'
 import 'bootstrap'
@@ -23,10 +22,12 @@ import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 import 'vue3-carousel/dist/carousel.css'
 import 'vue-skeletor/dist/vue-skeletor.css';
 import 'animate.css';
+import '@aws-amplify/ui-vue/styles.css';
 
 const pinia =createPinia();
 pinia.use(piniaPluginPersistedstate)
 const app = createApp(App)
+
 
 
 app.component('Carousel',Carousel);
@@ -37,6 +38,7 @@ app.component('Slide',Slide);
 app.component('Loading',Loading);
 app.component(Skeletor.name, Skeletor);
 
+
 app.use(VCalendar, {})
 app.use(VueGoogleMaps, {
     load: {
@@ -46,6 +48,5 @@ app.use(VueGoogleMaps, {
 app.use(pinia)
 app.use(router);
 app.use(globalFunction);
-
 
 app.mount('#app')
